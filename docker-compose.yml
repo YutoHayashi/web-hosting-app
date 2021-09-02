@@ -1,0 +1,30 @@
+version: '3'
+
+
+
+services:
+  server:
+    env_file: ./server/server.env
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - 80:80
+      - 443:443
+
+  python:
+    build:
+      context: ./python
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app:/app
+
+  node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile.dev
+    tty: true
+    ports:
+      - 8000:8000
+    volumes:
+      - ./view:/app
