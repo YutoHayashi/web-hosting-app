@@ -17,16 +17,23 @@ RUN dnf update -y
 
 RUN dnf install -y \
     httpd \
+    httpd-tools \
+    httpd-devel \
+    httpd-manual \
+    openssl \
+    openssl-devel \
+    python3-mod_wsgi \
     && \
     dnf clean all
 
-RUN systemctl enable httpd
+# RUN systemctl start httpd && \
+#     systemctl enable httpd
 
 COPY httpd.conf /etc/httpd/conf/httpd.conf
+ADD vhost.conf /etc/httpd/conf.d/
+ADD wsgi.conf /etc/httpd/conf.d/
 
 EXPOSE 80
 EXPOSE 443
 
 VOLUME [ "/sys/fs/cgroup" ]
-
-CMD [ "/usr/sbin/init" ]

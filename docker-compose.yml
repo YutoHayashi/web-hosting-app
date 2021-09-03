@@ -1,28 +1,84 @@
-version: '3'
+version: '3.7'
+
+
+
+networks:
+
+  application:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.11.0.0/24
 
 
 
 services:
+
+  db:
+    networks:
+      application:
+        ipv4_address: 172.11.0.10
+    build:
+      context: ./db
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 3306
+    volumes:
+      - ./db/data:/var/lib/mysql
+
+  phpmyadmin:
+    depends_on:
+      - db
+    networks:
+      application:
+        ipv4_address: 172.11.0.11
+    build:
+      context: ./phpmyadmin
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 5080:80
+
   server:
+    networks:
+      application:
+        ipv4_address: 172.11.0.12
     env_file: ./server/server.env
     build:
       context: ./server
       dockerfile: Dockerfile.dev
+    restart: always
+    privileged: true
+    command: /usr/sbin/init
     ports:
       - 80:80
       - 443:443
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./app:/var/www/html/api
 
   python:
+    networks:
+      application:
+        ipv4_address: 172.11.0.13
     build:
       context: ./python
       dockerfile: Dockerfile.dev
+    restart: always
+    tty: true
     volumes:
-      - ./app:/app
+      - ./app:/sourcecode
 
   node:
+    networks:
+      application:
+        ipv4_address: 172.11.0.14
     build:
       context: ./node
       dockerfile: Dockerfile.dev
+    restart: always
     tty: true
     ports:
       - 8000:8000
