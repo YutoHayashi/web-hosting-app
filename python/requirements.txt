@@ -1,5 +1,0 @@
-django
-mod_wsgi
-mod-wsgi-httpd
-mysqlclient
-mysql-connector-python

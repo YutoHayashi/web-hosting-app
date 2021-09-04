@@ -2,8 +2,6 @@ FROM centos:8
 
 ENV CONTAINER server
 
-WORKDIR /web
-
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
     rm -f /lib/systemd/system/multi-user.target.wants/*; \
     rm -f /etc/systemd/system/*.wants/*; \
@@ -23,6 +21,10 @@ RUN dnf install -y \
     openssl \
     openssl-devel \
     python3-mod_wsgi \
+    python38 \
+    python3-devel \
+    mysql-devel \
+    gcc \
     && \
     dnf clean all
 
@@ -32,6 +34,12 @@ RUN dnf install -y \
 COPY httpd.conf /etc/httpd/conf/httpd.conf
 ADD vhost.conf /etc/httpd/conf.d/
 ADD wsgi.conf /etc/httpd/conf.d/
+ADD requirements.dev.txt /
+ADD requirements.txt /
+
+RUN pip3 install -r /requirements.dev.txt
+
+WORKDIR /api/mouse
 
 EXPOSE 80
 EXPOSE 443

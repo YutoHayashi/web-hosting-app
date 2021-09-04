@@ -57,24 +57,14 @@ services:
       - 443:443
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./app:/var/www/html/api
-
-  python:
-    networks:
-      application:
-        ipv4_address: 172.11.0.13
-    build:
-      context: ./python
-      dockerfile: Dockerfile.dev
-    restart: always
-    tty: true
-    volumes:
-      - ./app:/sourcecode
+      - ./server/logs:/var/log/httpd
+      - ./app:/api
+      - ./view/dist:/var/www/html
 
   node:
     networks:
       application:
-        ipv4_address: 172.11.0.14
+        ipv4_address: 172.11.0.13
     build:
       context: ./node
       dockerfile: Dockerfile.dev
