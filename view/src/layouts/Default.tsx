@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from '@/components/Alert';
 export class Default extends React.Component<{  }, {  }> {
     public constructor( props: {  } ) {
         super( props );
@@ -6,7 +7,10 @@ export class Default extends React.Component<{  }, {  }> {
     public render(  ) {
         return (
             <>
-                { this.props.children }
+                <Alert type='danger'></Alert>
+                <main>
+                    { this.props.children }
+                </main>
             </>
         );
     }
