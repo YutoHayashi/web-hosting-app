@@ -34,9 +34,9 @@ RUN dnf install -y \
 COPY httpd.conf /etc/httpd/conf/httpd.conf
 ADD vhost.conf /etc/httpd/conf.d/
 ADD wsgi.conf /etc/httpd/conf.d/
-ADD requirements.dev.txt /
+ADD requirements.txt /
 
-RUN pip3 install -r /requirements.dev.txt
+RUN pip3 install -r /requirements.txt
 
 WORKDIR /api/mouse
 

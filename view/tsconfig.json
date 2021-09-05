@@ -14,7 +14,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "types": [ "vite/client" ],
   },
-  "include": ["./src"]
+  "include": ["./src", "tailwind.config.js", "postcss.config.js"]
 }
