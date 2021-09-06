@@ -55,6 +55,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 5081:8000
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - ./server/logs:/var/log/httpd
