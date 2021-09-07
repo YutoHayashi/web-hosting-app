@@ -10,6 +10,34 @@
 </head>
 <body>
     <p>{{ message }}</p>
-    <a href="{% url 'next' %}">next page</a>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>GENDER</th>
+                <th>AGE</th>
+                <th>BIRTH</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{% if i.gender %}mail{% else %}femail{% endif %}</td>
+            <td>{{ i.age }}</td>
+            <td>{{ i.birthday }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %} 
+        <input name="id" type="number" required />
+        <button type="submit">submit</button>
+    </form>
 </body>
 </html>
