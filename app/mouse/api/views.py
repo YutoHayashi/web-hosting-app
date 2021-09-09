@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 # Create your views here.
 
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic import TemplateView
 from .models import Friend
+from .forms import FindForm
+from django.core.paginator import Paginator
 
 class SampleView( TemplateView ):
     def __init__( self ):
@@ -14,12 +14,24 @@ class SampleView( TemplateView ):
             'title': 'index',
             'message': 'this is a index page',
         }
+
     def get( self, request ):
         data = Friend.objects.all(  )
-        self.params[ 'data' ] = data
+        page = request.GET.get( 'page', 1 )
+        paginator = Paginator( data, 1 )
+        self.params[ 'data' ] = paginator.get_page( page )
+        self.params[ 'form' ] = FindForm(  )
         return render( request, 'api/index.html', self.params )
+
     def post( self, request ):
-        id = request.POST[ 'id' ]
-        data = Friend.objects.get( id=id )
-        self.params[ 'data' ] = [ data ]
+        form = FindForm( request.POST )
+        find = request.POST[ 'find' ]
+        data = Friend.objects.filter( name__contains=find )
+        paginator = Paginator( data, 1 )
+        self.params[ 'data' ] = paginator.get_page(  )
+        self.params[ 'form' ] = FindForm( request.POST )
+        if ( form.is_valid(  ) ):
+            self.params[ 'message' ] = 'input is valid'
+        else:
+            self.params[ 'message' ] = 'input is not valid'
         return render( request, 'api/index.html', self.params )

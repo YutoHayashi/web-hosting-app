@@ -34,10 +34,16 @@
         </tbody>
     </table>
     {% endif %}
-    <form action="{% url 'index' %}" method="post">
+    <form action="{% url 'find' %}" method="post">
         {% csrf_token %} 
-        <input name="id" type="number" required />
-        <button type="submit">submit</button>
+        {{ form.as_p }}
+        <button type="submit">search</button>
     </form>
+    {% if data.has_previous %}
+    <a href="{% url 'index' %}?page={{ data.previous_page_number }}">previous</a>
+    {% endif %}
+    {% if data.has_next %}
+    <a href="{% url 'index' %}?page={{ data.next_page_number }}">next</a>
+    {% endif %}
 </body>
 </html>
