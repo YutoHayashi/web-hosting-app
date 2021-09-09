@@ -12,26 +12,20 @@ def number_only( value ):
             params={ 'value': value },
         )
 
-class Friend( models.Model ):
-    name = models.CharField( max_length=100, validators=[ number_only ] )
-    mail = models.EmailField( max_length=200 )
-    gender = models.BooleanField(  )
-    age = models.IntegerField( default=0, validators=[ MinValueValidator( 0 ), MaxValueValidator( 150 ) ] )
-    birthday = models.DateField(  )
-    url = models.URLField( null=True, validators=[ URLValidator(  ) ] )
+class User( models.Model ):
+    name = models.CharField( max_length=32 )
+    mail = models.EmailField(  )
 
-    def __str__( self ):
-        return '<Friend:id=' + str( self.id ) + ', ' + self.name + '(' + str( self.age ) + ')>'
-
-
-class Message( models.Model ):
-    friend = models.ForeignKey( Friend, on_delete=models.CASCADE )
-    title = models.CharField( max_length=100 )
-    content = models.CharField( max_length=300 )
-    pub_date = models.DateTimeField( auto_now_add=True )
-
-    def __str__( self ):
-        return '<Message:id=' + str( self.id ) + ', ' + self.title + '(' + str( self.content ) + ')>'
-
-    class Meta:
-        ordering = ( 'pub_date', )
+class Entry( models.Model ):
+    STATUS_DRAFT = 'draft'
+    STATUS_PUBLIC = 'public'
+    STATUS_SET = (
+        ( STATUS_DRAFT, '下書き中' ),
+        ( STATUS_PUBLIC, '公開中' ),
+    )
+    title = models.CharField( max_length=128 )
+    body = models.TextField(  )
+    created_at = models.DateTimeField( auto_now_add=True )
+    updated_at = models.DateTimeField( auto_now=True )
+    status = models.CharField( choices=STATUS_SET, default=STATUS_DRAFT, max_length=8 )
+    author = models.ForeignKey( User, related_name='entries', on_delete=models.CASCADE )

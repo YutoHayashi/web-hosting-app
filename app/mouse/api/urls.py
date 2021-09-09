@@ -1,6 +1,8 @@
+from rest_framework import routers
 from django.urls import path
-from .views import SampleView
+from .views import UserViewSet, EntryViewSet
 urlpatterns = [
-    path( r'', SampleView.as_view(  ), name='index', ),
-    path( r'find/', SampleView.as_view(  ), name='find', ),
 ]
+router = routers.DefaultRouter(  )
+router.register( r'users', UserViewSet )
+router.register( r'entries', EntryViewSet )
