@@ -60,7 +60,7 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - ./server/logs:/var/log/httpd
       - ./app:/api
-      - ./view/dist:/var/www/html
+      - ./view:/var/www/html
 
   node:
     networks:

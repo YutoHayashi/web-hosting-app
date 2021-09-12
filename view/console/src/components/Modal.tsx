@@ -1,6 +1,6 @@
 import React from 'react';
 import { Colors } from '@/Colors';
-import { Mdi } from './Mdi';
+import { Mdi } from './utils/Mdi';
 type ModalType = keyof Partial<typeof Colors>;
 interface Props {
     type: ModalType;

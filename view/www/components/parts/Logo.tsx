@@ -5,7 +5,7 @@ export class Logo extends React.Component<{  }, {  }> {
     }
     public render(  ) {
         return (
-            <strong className={ `logo text-3xl select-none text-blue-500` }>
+            <strong className={ `logo text-3xl select-none text-blue-500 whitespace-nowrap` }>
                 MOUSE
                 &thinsp;
                 <span className={ `font-normal text-xl text-black` }>

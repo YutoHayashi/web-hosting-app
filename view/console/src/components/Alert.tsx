@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mdi } from '@/components/Mdi';
+import { Mdi } from '@/components/utils/Mdi';
 import { Colors } from '@/Colors';
 type AlertType = keyof Partial<typeof Colors>;
 interface Props {

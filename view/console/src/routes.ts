@@ -8,6 +8,6 @@ export type Routes = Array<{
 }>
 export const routes: Routes = [
     { path: '/', component: Pages.Top, exact: true, }, // ← ここだけ children が定義できないよ！
-    { path: '/login', component: Pages.Login, exact: true, },
+    { path: '/signup', component: Pages.Signup, exact: true, },
     { path: '*', component: Pages.NotFound, },
 ];
