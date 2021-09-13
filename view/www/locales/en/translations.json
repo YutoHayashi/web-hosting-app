@@ -1,0 +1,13 @@
+{
+    "required": "Required",
+	"heading_signup_org": "Sign up your organization account",
+    "organization": "Organization",
+    "organization_placeholder": "Enter the organization name",
+    "email": "Email",
+    "email_placholder": "Enter the email address",
+    "password": "Password",
+    "password_placeholder": "Enter the password",
+    "re-password": "Re-password",
+    "re-password_placeholder": "Re-enter the password",
+    "signup": "Sign up"
+}

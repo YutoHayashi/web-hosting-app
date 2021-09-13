@@ -9,7 +9,7 @@ export default class Index extends React.Component<Props, {  }> {
 	public render(  ) {
 		const { lang } = this.props;
 		return (
-			<>{ i18next.t( 'language' ) }: { lang }</>
+			<div>{ i18next.t( 'language' ) }: { lang }</div>
 		);
 	}
 }

@@ -6,7 +6,7 @@ export const getStaticPaths = (  ) => {
 		fallback: false,
 	};
 };
-export const getStaticProps = ( _p: { params: i18nProps } ) => {
+export const getStaticProps = async ( _p: { params: i18nProps } ) => {
 	const _lang = _p.params.lang;
 	return {
 		props: {

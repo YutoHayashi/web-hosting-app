@@ -1,15 +1,17 @@
 import i18next from 'i18next';
+import { initReactI18next  } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 export const languages = [ 'en', 'ja' ];
 export const defaultLanguage = 'en';
+const ns = [ 'translations', ];
 export const init = (  ) => {
     const locales = Object.assign(
         {  },
         ...languages.map( lang => {
             return {
-                [ lang ]: {
-                    translations: require( '@/locales/' + lang + '/common.json' ),
-                },
+                [ lang ]: ns.map( _ns => ( {
+                    [ _ns ]: require( '@/locales/' + lang + '/' + _ns + '.json' ),
+                } ) ).reduce( ( p, c ) => Object.assign( p, c ) ),
             };
         } ),
     );
@@ -32,17 +34,20 @@ export const init = (  ) => {
         excludeCacheFor: [ 'cimode' ],
         cookieOptions: { path: '/' },
     };
-    i18next.use( LanguageDetector ).init( {
+    i18next.use( initReactI18next ).use( LanguageDetector ).init( {
+        defaultNS: ns[ 0 ],
+        ns,
         detection: detection,
         fallbackLng: defaultLanguage,
         resources: locales,
         returnObjects: true,
-        debug: false,
+        debug: true,
         interpolation: {
             escapeValue: false,
         },
         react: {
             wait: true,
         },
+        initImmediate: true,
     } );
 }

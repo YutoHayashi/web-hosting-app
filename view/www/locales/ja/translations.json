@@ -1,0 +1,13 @@
+{
+    "required": "必須",
+	"heading_signup_org": "組織のアカウントを作成",
+    "organization": "組織名",
+    "organization_placeholder": "組織名を入力",
+    "email": "メールアドレス",
+    "email_placholder": "メールアドレスを入力",
+    "password": "パスワード",
+    "password_placeholder": "パスワードを入力",
+    "re-password": "パスワード",
+    "re-password_placeholder": "パスワードを再入力",
+    "signup": "サインアップ"
+}
