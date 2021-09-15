@@ -1,13 +1,15 @@
 import React from 'react';
 import { Colors } from '@/types';
 import { Mdi } from '../utils/Mdi';
-interface Props {
+import { i18nProps } from '@/types';
+interface Props extends i18nProps {
     color: Colors;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     submit?: boolean;
     loading?: boolean;
 }
 interface States {}
+export { getStaticPaths, getStaticProps } from '@/middleware/i18n';
 export class Btn extends React.Component<Props, States> {
     public constructor( props: Props ) {
         super( props );

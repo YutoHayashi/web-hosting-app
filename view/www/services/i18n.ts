@@ -41,7 +41,7 @@ export const init = (  ) => {
         fallbackLng: defaultLanguage,
         resources: locales,
         returnObjects: true,
-        debug: true,
+        debug: false,
         interpolation: {
             escapeValue: false,
         },

@@ -1,5 +1,5 @@
 export interface i18nProps {
-    lang: string;
+    lang?: string;
 }
 export interface LinkParameter {
     href: string;

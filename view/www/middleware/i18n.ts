@@ -7,10 +7,10 @@ export const getStaticPaths = (  ) => {
 	};
 };
 export const getStaticProps = async ( _p: { params: i18nProps } ) => {
-	const _lang = _p.params.lang;
+	const _lang: string | undefined = _p.params.lang;
 	return {
 		props: {
-			lang: languages.includes( _lang ) ? _lang : defaultLanguage,
+			lang: languages.includes( _lang || '' ) ? _lang : defaultLanguage,
 		},
 	};
 }
