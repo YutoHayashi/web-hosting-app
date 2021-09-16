@@ -1,6 +1,6 @@
 import React from 'react';
-import Head from 'next/head';
 import { site } from '@/contexts/site';
+import { Seo } from '@/components/utils/Seo';
 export interface DefaultProps {
     title: string;
 }
@@ -14,9 +14,10 @@ export class Default extends React.Component<DefaultProps, {  }> {
             <site.Consumer>
                 { ( { name } ) => (
                     <>
-                        <Head>
-                            <title>{ title } | { name }</title>
-                        </Head>
+                        <Seo
+                            title={ title }
+                            description=''
+                        />
                         { children }
                     </>
                 ) }

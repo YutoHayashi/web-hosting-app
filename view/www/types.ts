@@ -6,3 +6,4 @@ export interface LinkParameter {
     name: string;
 }
 export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type Alerts = 'success' | 'warning' | 'danger' | 'info';

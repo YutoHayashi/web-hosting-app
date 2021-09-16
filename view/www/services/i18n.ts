@@ -1,8 +1,8 @@
 import i18next from 'i18next';
 import { initReactI18next  } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-export const languages = [ 'en', 'ja' ];
-export const defaultLanguage = 'en';
+export const defaultLanguage = process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
+export const languages = process.env.NEXT_PUBLIC_LOCALES?.split( ',' ) || [ defaultLanguage ];
 const ns = [ 'translations', ];
 export const init = (  ) => {
     const locales = Object.assign(

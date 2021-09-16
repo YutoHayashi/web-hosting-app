@@ -1,14 +1,17 @@
 import React from 'react';
+import Link from 'next/link'
 import i18next from 'i18next';
 import { i18nProps } from '@/types';
 import { Guest } from '@/components/layouts/Guest';
 import { Required } from '@/components/parts/Required';
 import { Btn } from '@/components/parts/Btn';
+import { Alert } from '@/components/block/Alert';
 interface Props extends i18nProps {  }
 interface States {
     loading: boolean;
     error: Array<string>;
 }
+export { getStaticPaths, getStaticProps } from '@/middleware/i18n';
 export default class Signup extends React.Component<Props, States> {
     public constructor( props: Props ) {
         super( props );
@@ -31,7 +34,16 @@ export default class Signup extends React.Component<Props, States> {
                 },
                 children: (
                     <div className={ `grid lg:grid-cols-2` }>
-                        <div></div>
+                        <div>
+                            {/* <Alert type='danger'>
+                                { ( { color } ) => (
+                                    <>
+                                        Your account has been
+                                        <strong className={ `text-${ color }-400` }>blocked</strong>, thank you for choose Tailwind CSS Design.
+                                    </>
+                                ) }
+                            </Alert> */}
+                        </div>
                         <div className={ `shadow py-10 px-5 md:px-10` }>
                             <h2 className={ `text-2xl font-bold tracking-wider mb-5 text-gray-600` }>{ i18next.t( 'heading_signup_org' ) }</h2>
                             { ( error.length > 0 ) ? (
@@ -80,4 +92,3 @@ export default class Signup extends React.Component<Props, States> {
         );
     }
 }
-export { getStaticPaths, getStaticProps } from '@/middleware/i18n';
