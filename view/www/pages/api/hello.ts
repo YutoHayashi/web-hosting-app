@@ -2,12 +2,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  name: string;
+  email: string;
+  password1: string;
+  password2: string;
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+export const org = {
+  register: async ( params: Data ): Promise<object> => {
+    let data = {};
+    return new Promise( ( resolve, reject ) => {
+      try {
+
+      } catch( e ) {
+        reject( e );
+      } finally {
+        resolve( data );
+      }
+    } )
+  }
 }
