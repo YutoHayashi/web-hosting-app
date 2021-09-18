@@ -35,17 +35,9 @@ export default class Signup extends React.Component<Props, States> {
                 children: (
                     <div className={ `grid lg:grid-cols-2` }>
                         <div>
-                            {/* <Alert type='danger'>
-                                { ( { color } ) => (
-                                    <>
-                                        Your account has been
-                                        <strong className={ `text-${ color }-400` }>blocked</strong>, thank you for choose Tailwind CSS Design.
-                                    </>
-                                ) }
-                            </Alert> */}
                         </div>
                         <div className={ `shadow py-10 px-5 md:px-10` }>
-                            <h2 className={ `text-2xl font-bold tracking-wider mb-5 text-gray-600` }>{ i18next.t( 'heading_signup_org' ) }</h2>
+                            <h2 className={ `text-2xl font-bold tracking-wider mb-10 text-gray-600` }>{ i18next.t( 'heading_signup_org' ) }</h2>
                             { ( error.length > 0 ) ? (
                             <ul className={ `mb-5` }>
                                 { error.map( e => (
@@ -67,6 +59,7 @@ export default class Signup extends React.Component<Props, States> {
                                 <p className={ `block text-gray-500 text-sm` }></p>
                                 <input id='email-input' type='email' name='email' className={ 'form-input rounded w-full text-gray-400' } placeholder={ i18next.t( 'email_placholder' ) } required></input>
                             </label>
+                            <hr className={ `my-8` } />
                             <label html-for='password-input' className={ `mb-5 block` }>
                                 <span className={ `font-bold text-gray-400 mr-1` }>{ i18next.t( 'password' ) }: </span>
                                 <Required />
