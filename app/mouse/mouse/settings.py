@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'iam',
+    'settings',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +167,7 @@ JWT_AUTH = {
 }
 
 APPEND_SLASH = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
