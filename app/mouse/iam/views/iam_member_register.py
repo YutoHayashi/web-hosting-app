@@ -14,6 +14,7 @@ class IAMMemberRegister( generics.CreateAPIView ):
 
     @transaction.atomic
     def post( self, request, format=None ):
+        print( request.data )
         serializer = IAMMemberSerializer( data=request.data )
         if serializer.is_valid(  ):
             serializer.save(  )

@@ -8,15 +8,14 @@ from iam.models import IAM
 
 class IAMMemberSerializer( serializers.ModelSerializer ):
 
-    password = serializers.CharField( write_only=True, required=True, )
-    organization = serializers.UUIDField( write_only=True )
+    password = serializers.CharField( write_only=True, required=True )
+    organization = serializers.UUIDField( required=False )
 
     class Meta:
         model       = IAM
         fields      = ( 'name', 'email', 'password', 'organization' )
         extra_kwargs= {
             'password': { 'write_only': True, },
-            'organization': { 'read_only': True, },
         }
 
     def create( self, validated_data ):
@@ -24,9 +23,10 @@ class IAMMemberSerializer( serializers.ModelSerializer ):
 
     def update( self, instance, validated_data ):
         if 'password' in validated_data:
-            instance.set_password( validated_data[ 'password' ] )
+            instance.set_password( validated_data.pop( 'password' ) )
         else:
             instance = super(  ).update( instance, validated_data, )
+        instance.save(  )
         return instance
 
 

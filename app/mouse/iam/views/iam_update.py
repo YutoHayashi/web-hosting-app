@@ -13,4 +13,8 @@ class IAMUpdate( generics.UpdateAPIView ):
     queryset = IAM.objects.all(  )
     serializer_class = IAMSerializer
 
-    # def update(  )
+    def get_object( self, ):
+        return self.queryset.filter( organization=self.request.data[ 'organization' ] ).filter( is_root=True ).get(  )
+
+    def put( self, request, *args, **kwargs ):
+        return self.partial_update( request, *args, **kwargs )
