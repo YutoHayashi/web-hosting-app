@@ -2,16 +2,18 @@ import uuid
 
 
 from django.db import models
-
-
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, _user_has_perm, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 
+from mouse import settings
+from iam.signals import iam_deleted
+
+
 class IAMManager( BaseUserManager ):
 
-    def create_org( self, request_data, **kwargs ):
+    def create_root( self, request_data, **kwargs ):
         now = timezone.now(  )
         if not request_data[ 'name' ] or not request_data[ 'email' ]:
             raise ValueError( 'IAM must have name and email address' )
@@ -41,13 +43,19 @@ class IAMManager( BaseUserManager ):
         iam.save( using=self._db )
         return iam
 
+    def bulk_create_member( self, request_datas, **kwargs ):
+        iams = [  ]
+        for rd in request_datas:
+            iams.append( self.create( rd ) )
+        return iams;
+
     def create_superuser( self, name, email, password, **extra_fields, ):
         request_data = {
             'name':     name,
             'email':    email,
             'password': password,
         }
-        iam = self.create_org( request_data )
+        iam = self.create_root( request_data )
         iam.is_admin = True
         iam.is_staff=True
         iam.is_superuser=True
@@ -84,8 +92,13 @@ class IAM( AbstractBaseUser, PermissionsMixin ):
         return self.is_admin
 
     def delete( self, ):
+        if self.is_root:
+            members = IAM.objects.filter( organization=self.organization ).filter( is_root=False ).all(  )
+            for member in members:
+                member.delete(  )
         self.is_active = False
         self.save(  )
+        iam_deleted.send( sender=settings.AUTH_USER_MODEL, instance=self )
 
     class Meta:
         db_table = 'iam'
