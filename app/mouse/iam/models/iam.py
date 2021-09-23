@@ -15,11 +15,13 @@ class IAMManager( BaseUserManager ):
 
     def create_root( self, request_data, **kwargs ):
         now = timezone.now(  )
+        organization = uuid.uuid4(  ).hex
         if not request_data[ 'name' ] or not request_data[ 'email' ]:
             raise ValueError( 'IAM must have name and email address' )
         iam = self.model(
             name        = request_data[ 'name' ],
             email       = request_data[ 'email' ],
+            organization= organization,
             is_root     = True,
             date_joined = now,
             last_login  = now,
