@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'iam',
     'settings',
+    'cms',
 ]
 
 MIDDLEWARE = [
