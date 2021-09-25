@@ -21,6 +21,8 @@ class AppSetting( models.Model ):
 
     iam         = models.OneToOneField( settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, editable=False, related_name='app_settings', )
     is_active   = models.BooleanField( default=True, )
+    created_at  = models.DateTimeField( auto_now_add=True )
+    updated_at  = models.DateTimeField( auto_now_add=True )
 
     objects = AppSettingQuerySet.as_manager(  )
 

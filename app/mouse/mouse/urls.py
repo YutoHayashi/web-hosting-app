@@ -19,7 +19,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 
 urlpatterns = [
-    url( r'admin/', admin.site.urls ),
-    url( r'^login/', obtain_jwt_token ),
-    url( r'iam/', include('iam.urls') ),
+    url( r'^admin/', admin.site.urls ),
+    url( r'^login/$', obtain_jwt_token ),
+    url( r'^iam/', include( 'iam.urls' ) ),
 ]

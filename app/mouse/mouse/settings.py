@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'iam',
-    'settings',
+    'setting',
+    'volume',
     'cms',
 ]
 
@@ -172,3 +173,5 @@ APPEND_SLASH = True
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+WEBVOL_PATH = '/var/www/webvol/'

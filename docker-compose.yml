@@ -61,6 +61,7 @@ services:
       - ./server/logs:/var/log/httpd
       - ./app:/api
       - ./view:/var/www/html
+      - ./webvol:/var/www/webvol
 
   node:
     networks:

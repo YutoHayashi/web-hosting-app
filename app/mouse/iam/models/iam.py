@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 from mouse import settings
-from iam.signals import iam_deleted
+from iam.signals import iam_deleted, iam_root_deleted, iam_member_deleted
 
 
 class IAMManager( BaseUserManager ):
@@ -69,12 +69,14 @@ class IAM( AbstractBaseUser, PermissionsMixin ):
 
     name            = models.CharField( _( 'name' ), max_length=50, unique=False, )
     email           = models.EmailField( verbose_name='email address', max_length=255, unique=True, )
-    organization    = models.UUIDField( default=uuid.uuid4(  ).hex, editable=False, )
+    organization    = models.UUIDField( default='', editable=False, )
     is_root         = models.BooleanField( _( 'which root iam' ), default=False, editable=False, )
     is_staff        = models.BooleanField( default=False, )
     is_active       = models.BooleanField( default=True, )
     is_admin        = models.BooleanField( default=False, )
     date_joined     = models.DateField( _( 'date joined' ), default=timezone.now )
+    created_at      = models.DateTimeField( auto_now_add=True )
+    updated_at      = models.DateTimeField( auto_now_add=True )
 
     objects = IAMManager(  )
 
@@ -100,7 +102,11 @@ class IAM( AbstractBaseUser, PermissionsMixin ):
                 member.delete(  )
         self.is_active = False
         self.save(  )
-        iam_deleted.send( sender=settings.AUTH_USER_MODEL, instance=self )
+        iam_deleted.send( sender=settings.AUTH_USER_MODEL, instance=self, )
+        if self.is_root:
+            iam_root_deleted.send( sender=settings.AUTH_USER_MODEL, instance=self )
+        else:
+            iam_member_deleted.send( sender=settings.AUTH_USER_MODEL, instance=self )
 
     class Meta:
         db_table = 'iam'
