@@ -5,5 +5,5 @@ export interface LinkParameter {
     href: string;
     name: string;
 }
-export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type Colors = 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink' | 'white';
 export type Alerts = 'success' | 'warning' | 'danger' | 'info';

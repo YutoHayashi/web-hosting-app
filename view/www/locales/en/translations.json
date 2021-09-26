@@ -8,6 +8,7 @@
     "password": "Password",
     "password_placeholder": "Enter the password",
     "re-password": "Re-password",
-    "re-password_placeholder": "Re-enter the password",
-    "signup": "Sign up"
+    "re-password_placeholder": "Re-type the password",
+    "signup": "Sign up",
+    "signin": "Sign in"
 }

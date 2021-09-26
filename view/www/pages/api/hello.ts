@@ -2,23 +2,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string;
-  email: string;
-  password1: string;
-  password2: string;
+    name: string;
+    email: string;
+    password: string;
 }
 
 export const org = {
-  register: async ( params: Data ): Promise<object> => {
-    let data = {};
-    return new Promise( ( resolve, reject ) => {
-      try {
+    register: async ( params: Data ): Promise<object> => {
+        let data = {};
+        return new Promise( ( resolve, reject ) => {
+            try {
 
-      } catch( e ) {
-        reject( e );
-      } finally {
-        resolve( data );
-      }
-    } )
-  }
+            } catch( e ) {
+                reject( e );
+            } finally {
+                resolve( data );
+            }
+        } )
+    }
 }

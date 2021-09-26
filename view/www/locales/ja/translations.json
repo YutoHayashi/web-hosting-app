@@ -7,7 +7,8 @@
     "email_placholder": "メールアドレスを入力",
     "password": "パスワード",
     "password_placeholder": "パスワードを入力",
-    "re-password": "パスワード",
+    "re-password": "パスワード（確認）",
     "re-password_placeholder": "パスワードを再入力",
-    "signup": "サインアップ"
+    "signup": "サインアップ",
+    "signin": "サインイン"
 }
