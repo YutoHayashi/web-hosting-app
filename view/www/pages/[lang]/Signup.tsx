@@ -53,14 +53,14 @@ export default class Signup extends React.Component<Props, States> {
                                 ) ) }
                             </ul>
                             ) : null }
-                            <label html-for='name-input' className={ `mb-5 block` }>
+                            <label htmlFor='name-input' className={ `mb-5 block` }>
                                 <span className={ `font-bold text-blue-400 hover:text-blue-500 mr-1 border-b-2 border-transparent hover:border-blue-500 cursor-pointer` }>{ __.t( 'organization' ) }: </span>
                                 <Required />
                                 <br />
                                 <p className={ `block text-gray-500 text-sm` }>Maximum 50 characters.</p>
                                 <input id='name-input' maxLength={ 50 } type='text' name='name' className={ `form-input rounded w-full text-gray-400 cursor-pointer` } placeholder={ __.t( 'organization_placeholder' ) } autoComplete='on' required></input>
                             </label>
-                            <label html-for='email-input' className={ `mb-5 block` }>
+                            <label htmlFor='email-input' className={ `mb-5 block` }>
                                 <span className={ `font-bold text-blue-400 hover:text-blue-500 mr-1 border-b-2 border-transparent hover:border-blue-500 cursor-pointer` }>{ __.t( 'email' ) }: </span>
                                 <Required />
                                 <br />
@@ -68,14 +68,14 @@ export default class Signup extends React.Component<Props, States> {
                                 <input id='email-input' maxLength={ 255 } type='email' name='email' className={ 'form-input rounded w-full text-gray-400 cursor-pointer' } placeholder={ __.t( 'email_placholder' ) } required></input>
                             </label>
                             <hr className={ `my-8` } />
-                            <label html-for='password-input' className={ `mb-5 block` }>
+                            <label htmlFor='password-input' className={ `mb-5 block` }>
                                 <span className={ `font-bold text-blue-400 hover:text-blue-500 mr-1 border-b-2 border-transparent hover:border-blue-500 cursor-pointer` }>{ __.t( 'password' ) }: </span>
                                 <Required />
                                 <br />
                                 <p className={ `block text-gray-500 text-sm` }>Between 8 and 32 characters.</p>
                                 <input id='password-input' type='password' name='password' className={ `form-input rounded w-full text-gray-400 cursor-pointer` } minLength={ 8 } maxLength={ 32 } autoComplete='new-password' placeholder={ __.t( 'password_placeholder' ) } required></input>
                             </label>
-                            <label html-for='repassword-input' className={ `mb-5 block` }>
+                            <label htmlFor='repassword-input' className={ `mb-5 block` }>
                                 <span className={ `font-bold text-blue-400 hover:text-blue-500 mr-1 border-b-2 border-transparent hover:border-blue-500 cursor-pointer` }>{ __.t( 're-password' ) }: </span>
                                 <Required />
                                 <br />

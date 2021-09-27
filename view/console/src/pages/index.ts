@@ -1,3 +1,3 @@
 export { Top } from './Top';
-export { Signup } from './Signup';
+export { Signout } from './Signout';
 export { NotFound } from './NotFound';

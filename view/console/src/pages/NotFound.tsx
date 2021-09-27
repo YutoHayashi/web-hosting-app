@@ -1,12 +1,16 @@
-import { Guest } from '@/layouts/Guest';
+import { Guest } from '@/layouts/Root';
 import React from 'react';
-export class NotFound extends React.Component<{  }, {  }> {
-    public constructor( props: {  } ) {
+import { Default, Props as HeadP } from '@/layouts/Default';
+interface Props {
+    head: HeadP;
+}
+export class NotFound extends React.Component<Props, {  }> {
+    public constructor( props: Props ) {
         super( props );
     }
     public render(  ) {
         return (
-            <Guest></Guest>
+            <Default { ...this.props.head }></Default>
         );
     }
 }
