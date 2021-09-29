@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from '@/images/logo.svg';
 import { Member } from '@/layouts/Member';
 import { links } from './links';
-export class Top extends React.Component<{  }, {  }> {
-    public constructor( props: {  } ) {
+interface Props {  }
+interface States {  }
+export class Dashboard extends React.Component<Props, States> {
+    public constructor( props: Props ) {
         super( props );
     }
     public render(  ) {
@@ -11,9 +12,12 @@ export class Top extends React.Component<{  }, {  }> {
             <Member {
                 ...{
                     head: {
-                        title: 'MOUSE',
+                        title: 'Billings Dashboard',
                     },
                     links,
+                    children: (
+                        <></>
+                    ),
                 }
             } />
         );
