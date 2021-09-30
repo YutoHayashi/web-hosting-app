@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'iam',
     'setting',
+    'builder',
     'volume',
     'cms',
 ]

@@ -22,4 +22,5 @@ urlpatterns = [
     url( r'^admin/', admin.site.urls ),
     url( r'^login/$', obtain_jwt_token ),
     url( r'^iam/', include( 'iam.urls' ) ),
+    url( r'^builder/', include( 'builder.urls' ) ),
 ]

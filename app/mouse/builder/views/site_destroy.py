@@ -3,21 +3,20 @@ from rest_framework import permissions, generics, status
 from rest_framework.response import Response
 
 
-from iam.serializers import IAMMemberSerializer
-from iam.models import IAM
+from builder.serializers import SiteSerializer
+from builder.models import Site
 from iam.permissions import IsOrganizationAdministrator
 
 
-class IAMMemberDestroy( generics.DestroyAPIView ):
+class SiteDestroy( generics.DestroyAPIView ):
 
     permission_classes = ( permissions.IsAuthenticated, IsOrganizationAdministrator )
-    queryset = IAM.objects.all(  )
-    serializer_class = IAMMemberSerializer
-    lookup_field = 'email'
+    queryset = Site.objects.all(  )
+    serializer_class = SiteSerializer
 
     def get_object( self, ):
         try:
-            instance = self.queryset.filter( email=self.request.data[ 'email' ] )[ 0 ]
+            instance = self.queryset.filter( name=self.request.data[ 'name' ] )[ 0 ]
             return instance
-        except IAM.DoesNotExist:
+        except Site.DoesNotExist:
             raise Http404
