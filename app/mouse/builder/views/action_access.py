@@ -1,23 +1,23 @@
 from django.db import transaction
-from django.core.mail import send_mail, EmailMessage
 from rest_framework import permissions, generics, status
 from rest_framework.response import Response
 
 
-from iam.serializers import IAMSerializer
-from iam.models import IAM
+from builder.serializers import ActionSerializer
+from builder.models import Action
 
 
-class IAMRegister( generics.CreateAPIView ):
+class ActionAccess( generics.CreateAPIView ):
 
-    permission_classes = ( permissions.AllowAny, )
-    queryset = IAM.objects.all(  )
-    serializer_class = IAMSerializer
+    permissions = ()
+    queryset = Action.objects.all(  )
+    serializer_class = ActionSerializer
 
     @transaction.atomic
     def post( self, request, format=None ):
-        serializer = IAMSerializer( data=request.data )
-        if serializer.is_valid(  ):
+        request.data[ 'type' ] = 'access';
+        serializer = ActionSerializer( data=request.data )
+        if ( serializer.is_valid(  ) ):
             serializer.save(  )
             return Response( serializer.data, status=status.HTTP_201_CREATED )
         return Response( serializer.errors, status=status.HTTP_400_BAD_REQUEST )

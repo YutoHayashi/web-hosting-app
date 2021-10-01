@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 
 
 from iam.signals import iam_root_deleted
+from builder.signals import site_terminated
 from mouse import settings
 
 
@@ -21,6 +22,7 @@ class SiteQuerySet( models.QuerySet ):
     def terminate( self, *args, **kwargs ):
         for obj in self:
             obj.delete(  )
+        site_terminated.send( sender='builder.Site', instance=self )
 
 
 class SiteManager( models.Manager.from_queryset( SiteQuerySet ) ):

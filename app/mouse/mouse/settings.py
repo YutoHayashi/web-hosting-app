@@ -164,6 +164,8 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'iam.IAM'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': False,
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
