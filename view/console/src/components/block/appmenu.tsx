@@ -13,11 +13,11 @@ export class Appmenu extends React.Component<Props, States> {
     public render(  ) {
         const { links } = this.props;
         return (
-            <div className={ `absolute top-0 left-0 lx:relative w-auto py-5 bg-gray-100 shadow` }>
+            <div className={ `absolute top-0 left-0 lx:relative w-auto py-5 bg-white shadow` }>
                 <div className={ `flex px-3 py-3` }>
-                    <h2 className={ `font-bold tracking-wider text-sm` }>MOUSE Services</h2>
+                    <h2 className={ `font-bold tracking-wider text-sm text-gray-600` }>MOUSE Services</h2>
                 </div>
-                <hr />
+                <hr className={ `border-gray-600` } />
                 <div className={ `relative w-44` }>
                     <nav className={ `top-0 py-3 min-w-full` }>
                         <ul>

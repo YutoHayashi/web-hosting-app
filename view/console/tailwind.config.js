@@ -4,6 +4,9 @@ module.exports = {
     darMode: false,
     theme: {
         extend: {},
+        colors: {
+            ...colors,
+        }
     },
     variants: {
         extend: {},

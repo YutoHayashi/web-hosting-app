@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-tby=7od^i_**8uwl)(6-j9*t#znq7ct5ck)-6$cl26!nbo&l^x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'api.localhost', 'localhost' ]
+ALLOWED_HOSTS = [
+    'api.localhost',
+    'localhost',
+]
 
 
 # Application definition
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
+    'corsheaders',
 
     'iam',
     'setting',
@@ -57,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mouse.urls'
@@ -161,6 +166,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'iam.IAM'
 
