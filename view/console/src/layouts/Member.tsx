@@ -12,7 +12,7 @@ interface States {  }
 export class Member extends React.Component<Props, States> {
     public constructor( props: Props ) {
         super( props );
-        iam.me(  )
+        this.props.getme(  );
     }
     public render(  ) {
         const { head, links, children } = this.props;
