@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { instance } from './request';
-type MeType = { name: string; email: string; organization: string; };
+import { IAM } from '@/types';
 export const iam = {
-    me: async ( jwt: string ): Promise<MeType> => {
-        return await instance.get<MeType>( '/iam/me/', {
+    me: async ( jwt: string ): Promise<IAM> => {
+        return await instance.get<IAM>( '/iam/me/', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${ jwt }`,
