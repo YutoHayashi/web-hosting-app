@@ -1,9 +1,36 @@
-import React, { useContext, useReducer, ReactNode } from 'react';
-import { RootReducer } from './reducers';
-import { RootState } from './state';
-import * as Types from './types';
-export const StoreStateContext = React.createContext<Types.RootState | undefined>( undefined );
-export const StoreDispatchContext = React.createContext<Types.RootDispatch | undefined>( undefined );
+import React, { useReducer, ReactNode } from 'react';
+import { State as IAMState, IAMDispatch, Action as IAMAction, reducer as IAMReducer, state as IAMstate } from './iam';
+import { State as MemberState, MemberDispatch, Action as MemberAction, reducer as MemberReducer, state as Memberstate } from './member';
+export type RootState =
+    & IAMState
+    & MemberState
+;
+export type RootDispatch =
+    & IAMDispatch
+    & MemberDispatch
+;
+export type RootAction =
+    | IAMAction
+    | MemberAction
+;
+export const RootState: RootState = {
+    ...IAMstate,
+    ...Memberstate,
+};
+export const RootReducer = ( state: RootState, action: RootAction ): RootState => {
+    let result = state;
+    [
+        IAMReducer,
+        MemberReducer,
+    ].map( reducer => reducer( state, action ) ).forEach( newstate => {
+        if ( newstate !== state ) {
+            result = newstate;
+        }
+    } );
+    return result;
+};
+export const StoreStateContext = React.createContext<RootState | undefined>( undefined );
+export const StoreDispatchContext = React.createContext<RootDispatch | undefined>( undefined );
 export const Provider: React.FC<{  }> = ( { children } ) => {
     const [ state, dispatch ] = useReducer( RootReducer, RootState );
     return (
@@ -14,14 +41,18 @@ export const Provider: React.FC<{  }> = ( { children } ) => {
         </StoreDispatchContext.Provider>
     );
 };
-export const Consumer: React.FC<{ children: ( dispatch: Types.RootDispatch | undefined, state: Types.RootState | undefined ) => ReactNode }> = ( { children } ) => {
+export const Consumer: React.FC<{ children: ( { dispatch, state }: { dispatch: RootDispatch, state: RootState } ) => ReactNode }> = ( { children } ) => {
     return (
         <StoreDispatchContext.Consumer>
             { ( dispatch ) => (
                 <StoreStateContext.Consumer>
-                    { ( state ) => (
-                        children( dispatch, state )
-                    ) }
+                    { ( state ) => {
+                        if ( dispatch && state ) {
+                            return children( { dispatch, state } );
+                        } else {
+                            throw new Error( 'Context Error: Either dispatch or state is missing.' );
+                        }
+                    } }
                 </StoreStateContext.Consumer>
             ) }
         </StoreDispatchContext.Consumer>
