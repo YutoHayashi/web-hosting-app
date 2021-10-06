@@ -18,7 +18,7 @@ export class Member extends React.Component<Props, States> {
     }
     public componentDidMount(  ) {
         const dispatch = this.context;
-        iam.me( 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIiwiZXhwIjoxNjMzNDc0Nzk1LCJlbWFpbCI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIn0.sV-xBUjYeDPvRpgkOV0XoJ2Oa9cDyzUa_K14qjYlHRo' ).then( me => {
+        iam.me( { jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIiwiZXhwIjoxNjMzNDc0Nzk1LCJlbWFpbCI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIn0.sV-xBUjYeDPvRpgkOV0XoJ2Oa9cDyzUa_K14qjYlHRo' } ).then( me => {
             dispatch( {
                 type: SETME,
                 payload: { me, },
