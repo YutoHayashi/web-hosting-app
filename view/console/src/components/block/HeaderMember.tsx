@@ -36,7 +36,7 @@ export class HeaderMember extends React.Component<Props, States> {
                 <div className={ `relative flex items-center justify-center cursor-pointer bg-white hover:bg-gray-100 py-3 px-4 rounded` } onClick={ this.togglePullDown.bind( this ) }>
                     <Consumer>
                         { ( { state } ) => (
-                            <p className={ `select-none hidden md:block mr-2` }>{ state.me.name }</p>
+                            <p className={ `select-none hidden md:block mr-2` }>{ state?.me.name }</p>
                         ) }
                     </Consumer>
                     <Mdi icon='menu-down' />
@@ -45,7 +45,7 @@ export class HeaderMember extends React.Component<Props, States> {
                     <ul className={ `${ pullDown.value ? 'block' : 'hidden' } shadow absolute top-full right-0 py-5 min-w-full bg-white` }>
                         <Consumer>
                             { ( { state } ) => (
-                                <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br /><a href="" className={ `underline text-blue-500 hover:text-blue-600` } >{ state.me.organization }</a></li>
+                                <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br /><a href="" className={ `underline text-blue-500 hover:text-blue-600` } >{ state?.me.organization }</a></li>
                             ) }
                         </Consumer>
                         <li>

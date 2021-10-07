@@ -13,7 +13,7 @@ class IAMMemberSerializer( serializers.ModelSerializer ):
 
     class Meta:
         model       = IAM
-        fields      = ( 'name', 'email', 'password', 'organization' )
+        fields      = ( 'id', 'name', 'email', 'password', 'organization', 'is_root', )
         extra_kwargs= {
             'password': { 'write_only': True, },
         }

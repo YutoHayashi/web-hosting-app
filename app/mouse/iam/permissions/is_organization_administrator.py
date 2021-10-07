@@ -7,8 +7,7 @@ class IsOrganizationAdministrator( permissions.BasePermission ):
 
     def has_permission( self, request, view ):
         pprint( request.user.has_perm( 'iam.add_iam' ) )
-        if ( request.data[ 'organization' ] == str( request.user.organization ) ) \
-            and ( request.user.is_root ):
+        if ( request.user.is_root ):
             return True
 
     def has_object_permission( self, request, view, obj ):

@@ -10,15 +10,11 @@ export type Action =
         | { type: typeof SETME; payload: { me: IAM }; }
     );
 export type State = {
-    me: {
-        name: string;
-        email: string;
-        organization: string;
-    };
+    me: IAM;
 }
 export const state: State = {
     me: {
-        name: '', email: '', organization: '',
+        id: 0, name: '', email: '', organization: '', is_root: false,
     },
 };
 export const reducer = ( state: RootState, action: RootAction ): RootState => {

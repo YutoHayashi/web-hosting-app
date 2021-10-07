@@ -1,12 +1,12 @@
 import { Dispatch } from 'react';
 import { IAM } from '@/types';
 import { RootAction, RootState } from './index';
-export const INDEX      = 'member/index';
+export const SET        = 'member/set';
 export const PUSH       = 'member/push';
 export type Action =
     { type: string; payload?: any; }
     & (
-        | { type: typeof INDEX; }
+        | { type: typeof SET; payload: IAM[]; }
         | { type: typeof PUSH; payload: IAM[]; }
     );
 export type State = {
@@ -21,12 +21,14 @@ export const state: State = {
 };
 export const reducer = ( state: RootState, action: RootAction ): RootState => {
     switch( action.type ) {
-        case INDEX:
-            return state;
+        case SET:
+            const state_set = Object.assign( state );
+            state_set.member.index = action.payload;
+            return { ...state, ...state_set };
         case PUSH:
-            const newState = Object.assign( state );
-            newState.member.index.push( ...action.payload );
-            return { ...state, ...newState };
+            const state_push = Object.assign( state );
+            state_push.member.index.push( ...action.payload );
+            return { ...state, ...state_push };
         default:
             break;
     }
