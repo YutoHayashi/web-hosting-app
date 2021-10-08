@@ -8,9 +8,6 @@ export const member = {
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${ jwt }`,
             },
-            params: {
-                organization,
-            }
         }, )
             .then( response => response.data )
         ;

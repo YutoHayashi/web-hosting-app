@@ -14,8 +14,8 @@ export const iam = {
     },
     update: async ( { jwt, organization, data = {  } }: { jwt: string; organization: string; data: Partial<IAM> } ): Promise<IAM> => {
         const fd = new FormData(  );
-        fd.set( organization, organization );
-        Object.keys( data ).forEach( iamkey => fd.set( iamkey, data[ iamkey ] ) );
+        fd.append( 'organization', organization );
+        Object.keys( data ).forEach( iamkey => fd.append( `${ iamkey }`, data[ iamkey ] ) );
         return await instance.put<IAM>( '/iam/update/', {
             headers: {
                 'Content-Type': 'application/json',

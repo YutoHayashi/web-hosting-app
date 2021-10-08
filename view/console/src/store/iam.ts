@@ -10,9 +10,11 @@ export type Action =
         | { type: typeof SETME; payload: { me: IAM }; }
     );
 export type State = {
+    is_authenticated: boolean;
     me: IAM;
 }
 export const state: State = {
+    is_authenticated: false,
     me: {
         id: 0, name: '', email: '', organization: '', is_root: false,
     },
@@ -22,7 +24,7 @@ export const reducer = ( state: RootState, action: RootAction ): RootState => {
         case ME:
             return state;
         case SETME:
-            return ( { ...state, ...action.payload, } );
+            return ( { ...state, ...{ ...action.payload, is_authenticated: true, }, } );
         default:
             break;
     }

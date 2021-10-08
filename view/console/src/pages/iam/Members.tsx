@@ -5,6 +5,7 @@ import { Consumer, MultiContext } from '@/store';
 import { SET } from '@/store/member';
 import { Link } from 'react-router-dom';
 import { member } from '@/request/member';
+import { cookie } from '@/middleware/cookie';
 interface Props {  }
 interface States {  }
 export class Members extends React.Component<Props, States> {
@@ -14,7 +15,7 @@ export class Members extends React.Component<Props, States> {
     }
     public componentDidMount(  ) {
         const { state, dispatch } = this.context;
-        member.index( { jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIiwiZXhwIjoxNjMzNDc0Nzk1LCJlbWFpbCI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIn0.sV-xBUjYeDPvRpgkOV0XoJ2Oa9cDyzUa_K14qjYlHRo', organization: state.me.organization } ).then( data => {
+        member.index( { jwt: cookie.get( { key: 'mouse_console_jwt' } ), organization: state.me.organization } ).then( data => {
             dispatch( {
                 type: SET,
                 payload: data.results,

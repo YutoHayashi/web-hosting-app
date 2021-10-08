@@ -6,6 +6,7 @@ import { LinkParameter } from '@/types';
 import { Consumer, MultiContext } from '@/store';
 import { iam } from '@/request/iam';
 import { SETME } from '@/store/iam';
+import { cookie } from '@/middleware/cookie';
 interface Props {
     head: HeadP;
     links: Array<LinkParameter>;
@@ -17,13 +18,16 @@ export class Member extends React.Component<Props, States> {
         super( props );
     }
     public componentDidMount(  ) {
-        const { dispatch } = this.context;
-        iam.me( { jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIiwiZXhwIjoxNjMzNDc0Nzk1LCJlbWFpbCI6InlfaGF5YXNoaUBhbHRhLmNvLmpwIn0.sV-xBUjYeDPvRpgkOV0XoJ2Oa9cDyzUa_K14qjYlHRo' } ).then( me => {
-            dispatch( {
-                type: SETME,
-                payload: { me, },
+        const { state, dispatch } = this.context;
+        if ( !state.is_authenticated ) {
+            const jwt = cookie.get( { key: 'mouse_console_jwt' } );
+            iam.me( { jwt, } ).then( me => {
+                dispatch( {
+                    type: SETME,
+                    payload: { me, },
+                } );
             } );
-        } );
+        }
     }
     public render(  ) {
         const { head, links, children } = this.props;
