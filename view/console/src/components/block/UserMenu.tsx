@@ -49,15 +49,15 @@ export class UserMenu extends React.Component<Props, States> {
                         <Mdi icon='account-switch' className={ `mr-2` } />Switch Account
                     </p>
                     <div className={ `${ switchAccount.formArea.active ? 'py-2' : 'h-0' } overflow-y-hidden transition duration-150 px-2 text-right` }>
-                        <label className={ `block mb-1 text-left` }>
+                        <label className={ `block text-left cursor-pointer` }>
                             <p className={ `text-sm text-gray-700` }>Email: </p>
-                            <input type="text" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full cursor-pointer` } />
+                            <input type="text" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full` } />
                         </label>
-                        <label className={ `block mb-1 text-left` }>
+                        <label className={ `block text-left cursor-pointer` }>
                             <p className={ `text-sm text-gray-700` }>Password: </p>
-                            <input type="password" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full cursor-pointer` } />
+                            <input type="password" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full` } />
                         </label>
-                        <button className={ `text-white bg-blue-500 hover:bg-blue-400 rounded py-1 px-5 text-sm` }>Logout and Switch</button>
+                        <button className={ `text-white bg-blue-500 hover:bg-blue-400 rounded py-1 px-5 text-sm mt-1` }>Signout and Switch</button>
                     </div>
                 </li>
                 <li>
