@@ -10,20 +10,19 @@ export type Action =
         | { type: typeof PUSH; payload: IAM[]; }
     );
 export type State = {
-    member: {
-        index: IAM[];
-    };
+    loaded: boolean;
+    index: IAM[];
 };
 export const state: State = {
-    member: {
-        index: [],
-    },
+    loaded: false,
+    index: [],
 };
 export const reducer = ( state: RootState, action: RootAction ): RootState => {
     switch( action.type ) {
         case SET:
-            const state_set = Object.assign( state );
+            const state_set: RootState = Object.assign( state );
             state_set.member.index = action.payload;
+            state_set.member.loaded = true;
             return { ...state, ...state_set };
         case PUSH:
             const state_push = Object.assign( state );

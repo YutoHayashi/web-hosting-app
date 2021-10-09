@@ -1,10 +1,10 @@
 import React, { useReducer, ReactNode, useContext } from 'react';
 import { State as IAMState, IAMDispatch, Action as IAMAction, reducer as IAMReducer, state as IAMstate } from './iam';
 import { State as MemberState, MemberDispatch, Action as MemberAction, reducer as MemberReducer, state as Memberstate } from './member';
-export type RootState =
-    & IAMState
-    & MemberState
-;
+export type RootState = {
+    iam: IAMState;
+    member: MemberState;
+};
 export type RootDispatch =
     & IAMDispatch
     & MemberDispatch
@@ -14,8 +14,8 @@ export type RootAction =
     | MemberAction
 ;
 export const RootState: RootState = {
-    ...IAMstate,
-    ...Memberstate,
+    iam: IAMstate,
+    member: Memberstate,
 };
 export const RootReducer = ( state: RootState, action: RootAction ): RootState => {
     let result = state;

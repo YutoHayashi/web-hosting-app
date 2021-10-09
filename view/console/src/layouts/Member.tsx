@@ -1,12 +1,13 @@
 import React from 'react';
 import { Default, Props as HeadP } from './Default';
 import { HeaderMember } from '@/components/block/HeaderMember';
-import { Appmenu } from '@/components/block/appmenu';
+import { AppMenu } from '@/components/block/AppMenu';
 import { LinkParameter } from '@/types';
-import { Consumer, MultiContext } from '@/store';
+import { MultiContext } from '@/store';
 import { iam } from '@/request/iam';
-import { SETME } from '@/store/iam';
-import { cookie } from '@/middleware/cookie';
+import { SETME, SETTOKEN } from '@/store/iam';
+import { cookie } from '@/services/cookie';
+import { Breadcrumbs } from '@/components/block/Breadcrumbs';
 interface Props {
     head: HeadP;
     links: Array<LinkParameter>;
@@ -19,14 +20,12 @@ export class Member extends React.Component<Props, States> {
     }
     public componentDidMount(  ) {
         const { state, dispatch } = this.context;
-        if ( !state.is_authenticated ) {
-            const jwt = cookie.get( { key: 'mouse_console_jwt' } );
-            iam.me( { jwt, } ).then( me => {
-                dispatch( {
-                    type: SETME,
-                    payload: { me, },
-                } );
-            } );
+        if ( !state.iam.token ) {
+            const token = cookie.get( { key: 'mouse_console_jwt' } );
+            if ( token ) {
+                dispatch( { type: SETTOKEN, payload: { token, }, } );
+                iam.me( { jwt: token, } ).then( data => dispatch( { type: SETME, payload: { me: data }, } ) );
+            }
         }
     }
     public render(  ) {
@@ -35,8 +34,13 @@ export class Member extends React.Component<Props, States> {
             <Default { ...this.props.head }>
                 <HeaderMember />
                 <div className={ `relative flex flex-row` }>
-                    <Appmenu links={ links } />
-                    { children }
+                    <AppMenu links={ links } />
+                    <div className={ `bg-gray-200 w-full` }>
+                        <Breadcrumbs />
+                        <div className={ `p-2` }>
+                            { children }
+                        </div>
+                    </div>
                 </div>
             </Default>
         );

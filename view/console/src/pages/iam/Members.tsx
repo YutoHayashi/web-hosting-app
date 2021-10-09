@@ -5,7 +5,6 @@ import { Consumer, MultiContext } from '@/store';
 import { SET } from '@/store/member';
 import { Link } from 'react-router-dom';
 import { member } from '@/request/member';
-import { cookie } from '@/middleware/cookie';
 interface Props {  }
 interface States {  }
 export class Members extends React.Component<Props, States> {
@@ -15,14 +14,14 @@ export class Members extends React.Component<Props, States> {
     }
     public componentDidMount(  ) {
         const { state, dispatch } = this.context;
-        member.index( { jwt: cookie.get( { key: 'mouse_console_jwt' } ), organization: state.me.organization } ).then( data => {
-            dispatch( {
-                type: SET,
-                payload: data.results,
+        if ( !state.member.loaded ) {
+            member.index( { jwt: state.iam.token } ).then( data => {
+                dispatch( {
+                    type: SET,
+                    payload: data.results,
+                } );
             } );
-        } );
-    }
-    public componentDidUpdate(  ) {
+        }
     }
     public render(  ) {
         return (
@@ -34,12 +33,11 @@ export class Members extends React.Component<Props, States> {
                     links,
                     children: (
                         <div className={ `w-full` }>
-                            <table className={ `table-auto w-full` }>
+                            <table className={ `table-fixed w-full` }>
                                 <thead>
                                     <tr className={ `text-sm font-light text-gray-700 text-left` }>
-                                        <th>ID</th>
-                                        <th>Name</th>
                                         <th>Email</th>
+                                        <th>Name</th>
                                         <th>Organization</th>
                                         <th>Administrator</th>
                                     </tr>
@@ -48,9 +46,8 @@ export class Members extends React.Component<Props, States> {
                                     <Consumer>
                                         { ( { state } ) => state?.member.index.map( m => (
                                             <tr key={ m.id } className={ `text-sm font-normal text-gray-700 text-left` }>
-                                                <td>{ m.id }</td>
-                                                <td>{ m.name }</td>
                                                 <td>{ m.email }</td>
+                                                <td>{ m.name }</td>
                                                 <td><Link to={ `` } className={ `text-blue-500 hover:text-blue-400` }>{ m.organization }</Link></td>
                                                 <td>{ m.is_root ? 'Yes' : 'No' }</td>
                                             </tr>

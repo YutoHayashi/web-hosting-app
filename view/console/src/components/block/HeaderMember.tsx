@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mdi } from '@/components/utils/Mdi';
 import { Consumer } from '@/store';
 import { UserMenu } from './UserMenu';
+import { stopPropagation } from '@/services/stopPropagation';
 interface Props {  }
 interface States {
     pullDown: { active: boolean; };
@@ -22,7 +24,7 @@ export class HeaderMember extends React.Component<Props, States> {
             }
         } } );
     }
-    public pullDownClicked: React.MouseEventHandler<HTMLDivElement> = e => {
+    public pullDownClicked( e: React.MouseEvent<HTMLDivElement> ) {
         this.togglePullDown(  );
     }
     public render(  ) {
@@ -32,11 +34,11 @@ export class HeaderMember extends React.Component<Props, States> {
                 <span className={ `cursor-pointer px-2 py-3` }>
                     <Mdi icon='view-grid' />
                 </span>
-                <h1 className={ `mr-auto ml-2 select-none` }>MOUSE console</h1>
-                <div className={ `relative flex items-center justify-center cursor-pointer bg-white hover:bg-gray-100 py-3 px-4 rounded` } onClick={ this.pullDownClicked.bind( this ) }>
+                <h1 className={ `mr-auto ml-2 select-none` }><Link to='/'>MOUSE console</Link></h1>
+                <div className={ `relative flex items-center justify-center cursor-pointer bg-white hover:bg-gray-100 py-3 px-4 rounded` } onClick={ stopPropagation<HTMLDivElement>( this.pullDownClicked.bind( this ) ) }>
                     <Consumer>
                         { ( { state } ) => (
-                            <p className={ `select-none hidden md:block mr-2` }>{ state?.me.name }</p>
+                            <p className={ `select-none hidden md:block mr-2` }>{ state?.iam.me.name }</p>
                         ) }
                     </Consumer>
                     <Mdi icon='menu-down' />

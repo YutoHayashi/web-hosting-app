@@ -6,7 +6,7 @@ interface Props {
     links: Array<LinkParameter>;
 }
 interface States {  }
-export class Appmenu extends React.Component<Props, States> {
+export class AppMenu extends React.Component<Props, States> {
     public constructor( props: Props ) {
         super( props );
     }
@@ -23,7 +23,7 @@ export class Appmenu extends React.Component<Props, States> {
                         <ul>
                             { links.map( ( _, i ) => (
                                 <li className={ `text-sm font-bold` } key={ i }>
-                                    <Link to={ _.href } className={ `whitespace-nowrap block py-1 px-3 text-gray-600 bg:transparent hover:bg-gray-200 rounded` }><Mdi icon='menu-right' />{ _.name }</Link>
+                                    <Link to={ _.href } className={ `whitespace-nowrap block py-1 px-3 text-gray-600 bg:transparent hover:bg-gray-200` }><Mdi icon='menu-right' />{ _.name }</Link>
                                 </li>
                             ) ) }
                         </ul>
