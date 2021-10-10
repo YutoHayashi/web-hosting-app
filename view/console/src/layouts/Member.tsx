@@ -6,8 +6,9 @@ import { LinkParameter } from '@/types';
 import { MultiContext } from '@/store';
 import { iam } from '@/request/iam';
 import { SETME, SETTOKEN } from '@/store/iam';
-import { cookie } from '@/services/cookie';
+import { cookie } from '@/utils/cookie';
 import { Breadcrumbs } from '@/components/block/Breadcrumbs';
+import { WatchIAM } from '@/services/Login';
 interface Props {
     head: HeadP;
     links: Array<LinkParameter>;
@@ -32,16 +33,23 @@ export class Member extends React.Component<Props, States> {
         const { head, links, children } = this.props;
         return (
             <Default { ...this.props.head }>
-                <HeaderMember />
-                <div className={ `relative flex flex-row` }>
-                    <AppMenu links={ links } />
-                    <div className={ `bg-gray-200 w-full` }>
-                        <Breadcrumbs />
-                        <div className={ `p-2` }>
-                            { children }
-                        </div>
-                    </div>
-                </div>
+                <WatchIAM>
+                    { ( state ) => (
+                        <>
+                            <HeaderMember />
+                            <div className={ `relative flex flex-row` }>
+                                <AppMenu links={ links } />
+                                <div className={ `bg-gray-200 w-full` }>
+                                    <Breadcrumbs />
+                                    <div className={ `p-2` }>
+                                        { children }
+                                        { state.token }
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    ) }
+                </WatchIAM>
             </Default>
         );
     }

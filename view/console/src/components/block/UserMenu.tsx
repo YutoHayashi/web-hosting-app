@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mdi } from '@/components/utils/Mdi';
 import { Consumer, MultiContext } from '@/store';
-import { stopPropagation } from '@/services/stopPropagation';
-import { SETME } from '@/store/iam';
+import { stopPropagation } from '@/utils/stopPropagation';
+import { SETME, SETTOKEN } from '@/store/iam';
 import { iam } from '@/request/iam';
-import { cookie } from '@/services/cookie';
+import { cookie } from '@/utils/cookie';
 interface Props {
     active: boolean;
 }
@@ -57,13 +57,13 @@ export class UserMenu extends React.Component<Props, States> {
         const [ email = '', password = '' ] = [ this.email.current?.value, this.password.current?.value ];
         iam.login( { email, password } ).then( ( { token } ) => cookie.set( { key: 'mouse_console_jwt', value: token } ) ).then( (  ) => {
             const { state, dispatch } = this.context;
-            iam.me( { jwt: state.iam.token, } ).then( me => {
-                dispatch( {
-                    type: SETME,
-                    payload: { me, },
-                } );
-                this.resetLoginForm(  );
-            } );
+            if ( !state.iam.token ) {
+                const token = cookie.get( { key: 'mouse_console_jwt' } );
+                if ( token ) {
+                    dispatch( { type: SETTOKEN, payload: { token, }, } );
+                    iam.me( { jwt: token, } ).then( data => dispatch( { type: SETME, payload: { me: data }, } ) );
+                }
+            }
         } );
     }
     public render(  ) {

@@ -1,11 +1,6 @@
 export const cookie = {
     get: ( { key }: { key: string; } ) => {
-        let value: string = '';
-        try {
-            value = decodeURIComponent( document.cookie.split( ';' ).find( c => c.split( '=' )[ 0 ].replace( / /, '' ) === `${ key }` )?.split( '=' )[ 1 ] || '' );
-        } finally {
-            return value;
-        }
+        return decodeURIComponent( document.cookie.split( ';' ).find( c => c.split( '=' )[ 0 ].replace( / /, '' ) === `${ key }` )?.split( '=' )[ 1 ] || '' );
     },
     set: ( { key, value, age = undefined }: { key: string; value: any; age?: number; } ) => {
         cookie.delete( { key } );

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Mdi } from '@/components/utils/Mdi';
 import { Consumer } from '@/store';
 import { UserMenu } from './UserMenu';
-import { stopPropagation } from '@/services/stopPropagation';
+import { stopPropagation } from '@/utils/stopPropagation';
 interface Props {  }
 interface States {
     pullDown: { active: boolean; };
