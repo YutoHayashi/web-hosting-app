@@ -35,7 +35,7 @@ export class Member extends React.Component<Props, States> {
                 <HeaderMember />
                 <div className={ `relative flex flex-row` }>
                     <AppMenu links={ links } />
-                    <div className={ `bg-gray-200 w-full` }>
+                    <div className={ `bg-white w-full` }>
                         <Breadcrumbs />
                         <div className={ `p-2` }>
                             { children }

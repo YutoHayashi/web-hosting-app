@@ -53,30 +53,3 @@ export const Consumer: React.FC<{ children: ( { state, dispatch }: { state: Root
         </MultiContext.Consumer>
     );
 };
-// export const Provider: React.FC<{  }> = ( { children } ) => {
-//     const [ state, dispatch ] = useReducer( RootReducer, RootState );
-//     return (
-//         <StoreDispatchContext.Provider value={ dispatch }>
-//             <StoreStateContext.Provider value={ state }>
-//                 { children }
-//             </StoreStateContext.Provider>
-//         </StoreDispatchContext.Provider>
-//     );
-// };
-// export const Consumer: React.FC<{ children: ( { dispatch, state }: { dispatch: RootDispatch, state: RootState } ) => ReactNode }> = ( { children } ) => {
-//     return (
-//         <StoreDispatchContext.Consumer>
-//             { ( dispatch ) => (
-//                 <StoreStateContext.Consumer>
-//                     { ( state ) => {
-//                         if ( dispatch && state ) {
-//                             return children( { dispatch, state } );
-//                         } else {
-//                             throw new Error( 'Context Error: Either dispatch or state is missing.' );
-//                         }
-//                     } }
-//                 </StoreStateContext.Consumer>
-//             ) }
-//         </StoreDispatchContext.Consumer>
-//     );
-// };
