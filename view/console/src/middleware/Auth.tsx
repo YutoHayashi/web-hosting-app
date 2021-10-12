@@ -86,7 +86,11 @@ export const AuthProvider: React.FC<Props> = ( { children } ) => {
 export const WithAuthentication: React.FC<{ children: ( states: States ) => ReactNode }> = ( { children } ) => {
     return (
         <LoginContext.Consumer>
-            { ( states ) => children( states ) }
+            { ( states ) => {
+                if ( states.isAuthenticated ) {
+                    return children( states )
+                } else <></>
+            } }
         </LoginContext.Consumer>
     );
 };
