@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mdi } from '@/components/utils/Mdi';
 import { Consumer, MultiContext } from '@/store';
-import { stopPropagation } from '@/utils/stopPropagation';
+import { stopPropagation } from '@/services/stopPropagation';
 import { SETME, SETTOKEN } from '@/store/iam';
 import { iam } from '@/request/iam';
 import { cookie } from '@/services/cookie';

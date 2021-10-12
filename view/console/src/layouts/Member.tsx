@@ -2,13 +2,13 @@ import React from 'react';
 import { Default, Props as HeadP } from './Default';
 import { HeaderMember } from '@/components/block/HeaderMember';
 import { AppMenu } from '@/components/block/AppMenu';
+import { Alert } from '@/components/block/Alert';
 import { LinkParameter } from '@/types';
 import { MultiContext } from '@/store';
 import { iam } from '@/request/iam';
 import { SETME, SETTOKEN } from '@/store/iam';
-import { cookie } from '@/utils/cookie';
+import { cookie } from '@/services/cookie';
 import { Breadcrumbs } from '@/components/block/Breadcrumbs';
-import { WatchIAM } from '@/services/Login';
 interface Props {
     head: HeadP;
     links: Array<LinkParameter>;
@@ -38,6 +38,7 @@ export class Member extends React.Component<Props, States> {
                     <AppMenu links={ links } />
                     <div className={ `bg-white w-full` }>
                         <Breadcrumbs />
+                        <Alert />
                         <div className={ `p-2` }>
                             { children }
                         </div>
