@@ -1,17 +1,17 @@
 import React from 'react';
 import { ReactRouter, ReactRouterView } from '@/ReactRouter';
-import { LoginProvider } from './services/Login';
+import { MiddlewareProvider } from './middleware';
 export class App extends React.Component<{  }, {  }> {
     public constructor( props: {  } ) {
         super( props );
     }
     public render(  ) {
         return (
-            <LoginProvider>
+            <MiddlewareProvider>
                 <ReactRouter>
                     <ReactRouterView />
                 </ReactRouter>
-            </LoginProvider>
+            </MiddlewareProvider>
         );
     }
 }

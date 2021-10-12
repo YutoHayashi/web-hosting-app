@@ -33,23 +33,16 @@ export class Member extends React.Component<Props, States> {
         const { head, links, children } = this.props;
         return (
             <Default { ...this.props.head }>
-                <WatchIAM>
-                    { ( state ) => (
-                        <>
-                            <HeaderMember />
-                            <div className={ `relative flex flex-row` }>
-                                <AppMenu links={ links } />
-                                <div className={ `bg-gray-200 w-full` }>
-                                    <Breadcrumbs />
-                                    <div className={ `p-2` }>
-                                        { children }
-                                        { state.token }
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    ) }
-                </WatchIAM>
+                <HeaderMember />
+                <div className={ `relative flex flex-row` }>
+                    <AppMenu links={ links } />
+                    <div className={ `bg-white w-full` }>
+                        <Breadcrumbs />
+                        <div className={ `p-2` }>
+                            { children }
+                        </div>
+                    </div>
+                </div>
             </Default>
         );
     }

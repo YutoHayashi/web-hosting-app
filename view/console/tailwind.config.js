@@ -6,6 +6,8 @@ module.exports = {
         extend: {},
         colors: {
             ...colors,
+            white: '#FFFFFF',
+            transparent: 'transparent',
         }
     },
     variants: {
