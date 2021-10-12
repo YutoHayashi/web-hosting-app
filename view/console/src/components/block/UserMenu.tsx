@@ -6,8 +6,6 @@ import { stopPropagation } from '@/services/stopPropagation';
 import { SETME } from '@/store/iam';
 import { iam } from '@/request/iam';
 import { cookie } from '@/services/cookie';
-import { WithAuthentication } from '@/middleware/Auth';
-import { Btn } from '../parts/Btn';
 import { SwitchAccountBtn } from './molecules/SwitchAccountBtn';
 import { SignoutBtn } from './molecules/SignoutBtn';
 interface Props {

@@ -60,6 +60,11 @@ const logout: (  ) => void = (  ) => {
 };
 const init: States = { isAuthenticated: false, token: '', login, change, logout, };
 export const LoginContext = createContext<States>( init );
+/**
+ * 認証関係のミドルウェアを提供。
+ * @param param0 
+ * @returns reactNode
+ */
 export const AuthProvider: React.FC<Props> = ( { children } ) => {
     [ state, setState ] = useState<States>( init );
     context = useContext( MultiContext );
@@ -83,14 +88,17 @@ export const AuthProvider: React.FC<Props> = ( { children } ) => {
  * @param param0 
  * @returns ReactNode
  */
-export const WithAuthentication: React.FC<{ children: ( states: States ) => ReactNode }> = ( { children } ) => {
+export const WithAuthentication: React.FC<{ children: ( states: States ) => ReactNode, requireAuthentication?: boolean }> = ( { children, requireAuthentication = true, } ) => {
     return (
         <LoginContext.Consumer>
-            { ( states ) => {
-                if ( states.isAuthenticated ) {
-                    return children( states )
-                } else <></>
+            { ( state ) => {
+                if ( requireAuthentication ) {
+                    if ( state.isAuthenticated ) {
+                        return children( state );
+                    } else return <></>;
+                } else return children( state );
             } }
         </LoginContext.Consumer>
     );
 };
+login(  );

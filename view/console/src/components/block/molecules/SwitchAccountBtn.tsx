@@ -20,7 +20,9 @@ export class SwitchAccountBtn extends React.Component<Props, States> {
         const { onSwitch = (  ) => null, onSubmit = (  ) => ( { email: '', password: '' } ) } = this.props;
         const { loading } = this.state;
         return (
-            <WithAuthentication>
+            <WithAuthentication
+                requireAuthentication={ false }
+            >
                 { ( { change } ) => (
                     <Btn
                         onClick={ stopPropagation<HTMLButtonElement>( e => {
