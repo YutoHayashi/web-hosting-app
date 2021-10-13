@@ -1,5 +1,6 @@
 import { Btn } from '@/components/parts/Btn';
-import { WithAuthentication } from '@/middleware/Auth';
+import { AlertSetter } from '@/middleware/Alert';
+import { WithoutAuthentication } from '@/middleware/Auth';
 import { stopPropagation } from '@/services/stopPropagation';
 import React from 'react';
 interface Props {
@@ -20,26 +21,30 @@ export class SwitchAccountBtn extends React.Component<Props, States> {
         const { onSwitch = (  ) => null, onSubmit = (  ) => ( { email: '', password: '' } ) } = this.props;
         const { loading } = this.state;
         return (
-            <WithAuthentication
-                requireAuthentication={ false }
-            >
+            <WithoutAuthentication>
                 { ( { change } ) => (
-                    <Btn
-                        onClick={ stopPropagation<HTMLButtonElement>( e => {
-                            const { email, password } = onSubmit(  );
-                            this.setState( { ...this.state, ...{ loading: true, } } )
-                            change( { email, password, } )
-                                .then( (  ) => this.setState( { ...this.state, ...{ loading: false, } } ) )
-                                .then( onSwitch );
-                        } ) }
-                        color="blue"
-                        className="ml-auto my-2"
-                        loading={ loading }
-                    >
-                        Logout and Switch
-                    </Btn>
+                    <AlertSetter>
+                        { ( { alert } ) => (
+                            <Btn
+                                onClick={ stopPropagation<HTMLButtonElement>( e => {
+                                    const { email, password } = onSubmit(  );
+                                    this.setState( { ...this.state, ...{ loading: true, } } )
+                                    change( { email, password, } )
+                                        .then( (  ) => this.setState( { ...this.state, ...{ loading: false, } } ) )
+                                        .then( (  ) => alert( { message: 'Account changed.', type: 'info', } ) )
+                                        .then( onSwitch )
+                                    ;
+                                } ) }
+                                color="blue"
+                                className="ml-auto my-2 outline-noen"
+                                loading={ loading }
+                            >
+                                Logout and Switch
+                            </Btn>
+                        ) }
+                    </AlertSetter>
                 ) }
-            </WithAuthentication>
+            </WithoutAuthentication>
         )
     }
 }

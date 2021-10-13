@@ -51,12 +51,13 @@ const change: ( params?: { email?: string; password?: string } ) => Promise<void
         setme( { token } );
     } );
 };
-const logout: (  ) => void = (  ) => {
+const logout: (  ) => Promise<void> = async (  ) => {
     cookie.delete( { key: 'mouse_console_jwt' } );
     setState( { ...state, ...{ isAuthenticated: false, }, } );
     if ( context && context.dispatch ) {
         context.dispatch( { type: SETME, payload: { me: { email: '', name: '', organization: '', }, }, } );
     } else contextError(  );
+    Promise.resolve(  );
 };
 const init: States = { isAuthenticated: false, token: '', login, change, logout, };
 export const LoginContext = createContext<States>( init );
