@@ -38,18 +38,16 @@ export const Provider: React.FC<{  }> = ( { children } ) => {
         <MultiContext.Provider value={ { state, dispatch, } }>
             { children }
         </MultiContext.Provider>
-    )
-}
-export const Consumer: React.FC<{ children: ( { state, dispatch }: { state: RootState | undefined; dispatch: RootDispatch | undefined } ) => ReactNode }> = ( { children } ) => {
-    return (
-        <MultiContext.Consumer>
-            { ( obj ) => {
-                if ( obj?.state && obj?.dispatch ) {
-                    return children( { state: obj.state, dispatch: obj.dispatch } );
-                } else {
-                    throw new Error( 'Context Error: Either dispatch or state is missing.' );
-                }
-            } }
-        </MultiContext.Consumer>
     );
 };
+export const Consumer: React.FC<{ children: ( { state, dispatch }: { state: RootState | undefined; dispatch: RootDispatch | undefined } ) => ReactNode }> = ( { children } ) => (
+    <MultiContext.Consumer>
+        { ( obj ) => {
+            if ( obj?.state && obj?.dispatch ) {
+                return children( { state: obj.state, dispatch: obj.dispatch } );
+            } else {
+                throw new Error( 'Context Error: Either dispatch or state is missing.' );
+            }
+        } }
+    </MultiContext.Consumer>
+);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mdi } from '@/components/utils/Mdi';
-import { Consumer, MultiContext } from '@/store';
+import { MultiContext } from '@/store';
 import { stopPropagation } from '@/services/stopPropagation';
-import { SETME, SETTOKEN } from '@/store/iam';
+import { IAMConsumer, SETME, SETTOKEN } from '@/store/iam';
 import { iam } from '@/request/iam';
 import { cookie } from '@/services/cookie';
 import { SwitchAccountBtn } from './molecules/SwitchAccountBtn';
@@ -75,12 +75,12 @@ export class UserMenu extends React.Component<Props, States> {
         const { switchAccount, loading } = this.state;
         const { email, password, } = this;
         return (
-            <ul className={ `${ active ? 'block' : 'hidden' } shadow absolute top-full right-0 py-5 min-w-full bg-white min-w-max` } onClick={ stopPropagation<HTMLUListElement>(  ) }>
-                <Consumer>
-                    { ( { state } ) => (
-                        <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br /><a href="" className={ `underline text-blue-500 hover:text-blue-600` } >{ state?.iam.me.organization }</a></li>
+            <ul className={ `${ active ? 'block' : 'hidden' } shadow-lg absolute top-full right-0 py-5 min-w-full bg-white min-w-max` } onClick={ stopPropagation<HTMLUListElement>(  ) }>
+                <IAMConsumer>
+                    { ( { iam } ) => (
+                        <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br /><a href="" className={ `underline text-blue-500 hover:text-blue-400` } >{ iam.organization }</a></li>
                     ) }
-                </Consumer>
+                </IAMConsumer>
 
                 <li>
                     <Link to='/settings' className={ `inline-block w-full whitespace-nowrap hover:bg-blue-500 font-bold hover:text-white px-2 py-2 rounded-sm text-sm` }>

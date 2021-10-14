@@ -30,7 +30,7 @@ export class HeaderMember extends React.Component<Props, States> {
     public render(  ) {
         const { pullDown } = this.state;
         return (
-            <header className={ `absolute top-0 shadow flex items-center justify-between px-2 sticky inset-0 bg-white z-20` }>
+            <header className={ `absolute top-0 shadow border-b border-gray-300 flex items-center justify-between px-2 sticky inset-0 bg-white z-20` }>
                 <span className={ `cursor-pointer px-2 py-3` }>
                     <Mdi icon='view-grid' />
                 </span>
