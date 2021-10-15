@@ -1,6 +1,7 @@
 import React from 'react';
 import { Member } from '@/layouts/Member';
 import { links } from './links';
+import { Text } from '@/components/inputs/Text';
 interface Props {  }
 interface States {  }
 export class Add extends React.Component<Props, States> {
@@ -16,9 +17,7 @@ export class Add extends React.Component<Props, States> {
                         return (
                             <section className={ `w-full` }>
                                 <h2 className={ `font-bold underline` }>Add Member</h2>
-                                <label className={ `inline-block my-5` }>
-                                    <h3 className={ `text-sm font-bold` }>Name&nbsp;:&nbsp;</h3>
-                                </label>
+                                <Text title={ `Name` } name={ `name` } required={ true } autofocus={ true } />
                             </section>
                         );
                     },

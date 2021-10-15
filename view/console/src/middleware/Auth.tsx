@@ -39,7 +39,7 @@ const login: ( params?: { email?: string; password?: string, } ) => Promise<void
             } );
         } else {
             const token: string = cookie.get( { key: TOKEN_NAME } );
-            if ( token ) me( { token, } )
+            if ( token ) me( { token, } );
         }
     } finally {
         return Promise.resolve(  );
