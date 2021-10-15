@@ -4,4 +4,5 @@ export const links: Array<LinkParameter> = [
     { href: '/iam/roles', name: 'IAM Roles', },
     { href: '/iam/groups', name: 'IAM Groups', },
     { href: '/iam/members', name: 'IAM Members', },
+    { href: '/iam/organization', name: 'IAM Organization', },
 ];

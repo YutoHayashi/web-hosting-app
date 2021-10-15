@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Default, Props as HeadP } from './Default';
 import { HeaderMember } from '@/components/block/HeaderMember';
 import { AppMenu } from '@/components/block/AppMenu';
 import { Alert } from '@/components/block/Alert';
 import { LinkParameter } from '@/types';
 import { MultiContext } from '@/store';
-import { iam } from '@/request/iam';
-import { SETME, SETTOKEN } from '@/store/iam';
-import { cookie } from '@/services/cookie';
 import { Breadcrumbs } from '@/components/block/Breadcrumbs';
+import { WithAuthentication } from '@/middleware/Auth';
 interface Props {
-    head: HeadP;
-    links: Array<LinkParameter>;
+    head?: HeadP;
+    links?: Array<LinkParameter>;
+    children: ( args: { token: string } ) => ReactNode;
 }
 interface States {  }
 export class Member extends React.Component<Props, States> {
@@ -20,7 +19,7 @@ export class Member extends React.Component<Props, States> {
         super( props );
     }
     public render(  ) {
-        const { head, links, children } = this.props;
+        const { head, links = [  ], children } = this.props;
         return (
             <Default { ...this.props.head }>
                 <HeaderMember />
@@ -30,7 +29,9 @@ export class Member extends React.Component<Props, States> {
                         <Breadcrumbs />
                         <Alert />
                         <div className={ `p-2` }>
-                            { children }
+                            <WithAuthentication>
+                                { ( { token } ) => children( { token } ) }
+                            </WithAuthentication>
                         </div>
                     </div>
                 </div>

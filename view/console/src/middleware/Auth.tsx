@@ -107,6 +107,6 @@ export const WithoutAuthentication: React.FC<{ children: ( args: { change: typeo
         { ( { change, login } ) => children( { change, login } ) }
     </AuthManager>
 );
-( function autologin(  ) {
+( function trytologin(  ) {
     login(  );
 } )(  );

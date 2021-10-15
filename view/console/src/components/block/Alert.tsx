@@ -1,8 +1,16 @@
 import { AlertManager, AlertType } from '@/middleware/Alert';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Mdi } from '../utils/Mdi';
 interface Props {  }
 interface States {  }
+const Icons: {
+    [ K in AlertType ]: string;
+} = {
+    success: 'checkbox-marked-circle-outline',
+    warn: 'alert-circle-outline',
+    error: 'cancel',
+    info: 'information-outline',
+};
 export class Alert extends React.Component<Props, States> {
     public constructor( props: Props ) {
         super( props );
@@ -26,6 +34,7 @@ export class Alert extends React.Component<Props, States> {
             <AlertManager>
                 { ( { message, type, active, close } ) => {
                     const color = this.color( type );
+                    const icon = Icons[ type ];
                     return (
                         <div
                             className={ `p-1 ${ active ? 'block' : 'hidden' }` }
@@ -33,7 +42,15 @@ export class Alert extends React.Component<Props, States> {
                             <div
                                 className={ `flex items-center justify-between py-1 px-3 md:px-3 border-l-4 border-${ color }-500 bg-${ color }-100 w-full text-gray-600 font-bold text-sm rounded` }
                             >
-                                { message }
+                                <div
+                                    className={ `flex items-start` }
+                                >
+                                    <Mdi
+                                        icon={ icon }
+                                        className={ `text-${ color }-400 mdi-18px inline mr-1` }
+                                    />
+                                    { message }
+                                </div>
                                 <button
                                     className={ `text-${ color }-500 font-bold cursor-pointer` }
                                     onClick={ close }

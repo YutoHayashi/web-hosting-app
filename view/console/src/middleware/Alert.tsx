@@ -15,9 +15,6 @@ let context: {
     state: RootState | undefined;
     dispatch: RootDispatch | undefined;
 } | undefined;
-const contextError = (  ) => {
-    throw new Error( 'Context Error: Either dispatch or state is missing.' );
-};
 const alert: ( args: { message: ReactNode; type: AlertType } ) => void = ( { message, type } ) => {
     setState( { ...state, ...{
         message, type, active: true,
@@ -29,7 +26,7 @@ const close: (  ) => void = (  ) => {
     } } );
 };
 const init: States = {
-    active: true,
+    active: false,
     message: 'default',
     type: 'info',
     alert,

@@ -78,7 +78,9 @@ export class UserMenu extends React.Component<Props, States> {
             <ul className={ `${ active ? 'block' : 'hidden' } shadow-lg absolute top-full right-0 py-5 min-w-full bg-white min-w-max` } onClick={ stopPropagation<HTMLUListElement>(  ) }>
                 <IAMConsumer>
                     { ( { iam } ) => (
-                        <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br /><a href="" className={ `underline text-blue-500 hover:text-blue-400` } >{ iam.organization }</a></li>
+                        <li className={ `whitespace-nowrap px-2 py-2 text-md mb-2` }>OrganizationID: <br />
+                            <Link to='/iam/organization' className={ `underline text-blue-500 hover:text-blue-400` } >{ iam.organization }</Link>
+                        </li>
                     ) }
                 </IAMConsumer>
 
@@ -96,14 +98,16 @@ export class UserMenu extends React.Component<Props, States> {
 
                     <div className={ `${ switchAccount.formArea.active ? 'py-2' : 'h-0' } overflow-y-hidden transition duration-150 px-2 text-right` }>
 
+                        <small className={ `text-sm text-gray-500` }>Sign out and then try to sign in again.</small>
+
                         <label className={ `block text-left cursor-pointer` }>
                             <p className={ `text-sm text-gray-700` }>Email: </p>
-                            <input ref={ email } type="text" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full` } />
+                            <input ref={ email } type="text" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full cursor-pointer` } />
                         </label>
 
                         <label className={ `block text-left cursor-pointer` }>
                             <p className={ `text-sm text-gray-700` }>Password: </p>
-                            <input ref={ password } type="password" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full` } />
+                            <input ref={ password } type="password" className={ `rounded outline-none focus:shadow-outline border border-blue-500 focus:border-blue-400 hover:border-blue-400 text-sm py-1 w-full cursor-pointer` } />
                         </label>
 
                         {/* サインインユーザー切り替え送信 */}
@@ -113,6 +117,7 @@ export class UserMenu extends React.Component<Props, States> {
                         />
 
                     </div>
+
                 </li>
 
                 <li className={ `select-none` }>

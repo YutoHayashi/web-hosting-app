@@ -18,12 +18,12 @@ export class AppMenu extends React.Component<Props, States> {
                     <h2 className={ `font-bold tracking-wider text-sm text-gray-600` }>MOUSE Services</h2>
                 </div>
                 <hr className={ `border-gray-600` } />
-                <div className={ `relative w-44` }>
+                <div className={ `relative` }>
                     <nav className={ `top-0 py-3 min-w-full` }>
                         <ul>
                             { links.map( ( _, i ) => (
                                 <li className={ `text-sm font-bold` } key={ i }>
-                                    <Link to={ _.href } className={ `whitespace-nowrap block py-1 px-3 text-gray-600 bg:transparent hover:bg-gray-200` }><Mdi icon='menu-right' />{ _.name }</Link>
+                                    <Link to={ _.href } className={ `whitespace-nowrap block py-1 pl-3 pr-5 text-gray-600 bg:transparent hover:bg-gray-200` }><Mdi icon='menu-right' />{ _.name }</Link>
                                 </li>
                             ) ) }
                         </ul>

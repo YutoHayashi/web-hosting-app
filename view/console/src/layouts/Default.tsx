@@ -1,6 +1,6 @@
 import React from 'react';
 export interface Props {
-    title: string;
+    title?: string;
 }
 export class Default extends React.Component<Props, {  }> {
     public constructor( props: Props ) {

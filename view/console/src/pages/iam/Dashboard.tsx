@@ -15,7 +15,7 @@ export class Dashboard extends React.Component<Props, States> {
                         title: 'IAM Dashboard,'
                     },
                     links,
-                    children: (
+                    children: ( { token } ) => (
                         <></>
                     ),
                 }
