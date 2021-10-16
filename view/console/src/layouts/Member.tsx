@@ -27,8 +27,8 @@ export class Member extends React.Component<Props, States> {
                     <AppMenu links={ links } />
                     <div className={ `bg-white w-full` }>
                         <Breadcrumbs />
-                        <Alert />
-                        <div className={ `p-2` }>
+                        <div className={ `py-1 px-2` }>
+                            <Alert />
                             <WithAuthentication>
                                 { ( { token } ) => children( { token } ) }
                             </WithAuthentication>

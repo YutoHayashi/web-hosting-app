@@ -4,7 +4,7 @@ import { Mdi } from '../utils/Mdi';
 import { Link } from 'react-router-dom';
 interface Props {
     className?: string;
-    color: Colors;
+    color?: Colors;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     submit?: boolean;
     loading?: boolean;
@@ -19,11 +19,11 @@ export class Btn extends React.Component<Props, States> {
         const { className, submit, color, loading, children, onClick, to, } = this.props;
         if ( to ) {
             return (
-                <Link to={ to } className={ `bg-${ color }-500 hover:bg-${ color }-400 block py-1 px-3 rounded text-white font-bold text-xs ${ className }` }>{ children }</Link>
+                <Link to={ to } className={ `bg-${ color }-500 hover:bg-${ color }-400 block py-1 px-3 rounded text-white font-base text-xs ${ className }` }>{ children }</Link>
             );
         } else {
             return (
-                <button type={ submit ? 'submit' : 'button' } className={ `bg-${ color }-500 hover:bg-${ color }-400 block py-1 px-3 rounded text-white font-bold text-xs ${ className }` } onClick={ onClick }>
+                <button type={ submit ? 'submit' : 'button' } className={ `bg-${ color }-500 hover:bg-${ color }-400 block py-1 px-3 rounded text-white text-sm ${ className }` } onClick={ onClick }>
                     { loading ? (
                         <Mdi icon='loading' className={ `mdi-spin` }/>
                     ) : children }

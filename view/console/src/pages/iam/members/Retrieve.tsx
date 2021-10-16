@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { member } from '@/request/member';
 import { IAM } from '@/types';
 import { Btn } from '@/components/parts/Btn';
+import { Mdi } from '@/components/utils/Mdi';
 interface Props {  }
 interface States {  }
 export class Retrieve extends React.Component<Props, States> {
@@ -18,10 +19,14 @@ export class Retrieve extends React.Component<Props, States> {
     private _init( args: { token: string, dispatch: any } ) {
         const { token, dispatch } = args;
         if ( this._token !== args.token ) {
-            if ( dispatch ) {
-                member.index( { jwt: token } ).then( data => dispatch( { type: MEMBERSET, payload: data.results, } ) );
-                this._token = token;
-            }
+            this._index( { token, dispatch } );
+        }
+    }
+    private _index( args: { token: string; dispatch: any } ) {
+        const { token, dispatch } = args;
+        if ( dispatch ) {
+            member.index( { jwt: token } ).then( data => dispatch( { type: MEMBERSET, payload: data, } ) );
+            this._token = token;
         }
     }
     public render(  ) {
@@ -34,11 +39,11 @@ export class Retrieve extends React.Component<Props, States> {
                         this._init( { token, dispatch } );
                         return (
                             <>
-                                <div className={ `w-full flex` }>
-                                    <Btn
-                                        color='blue'
-                                        to="/iam/members/add"
-                                    >
+                                <div className={ `flex py-1 px-2 rounded bg-gray-300` }>
+                                    <Btn className={ `font-bold text-gray-800` } onClick={ e => this._index( { token, dispatch } ) }>Reload&ensp;<Mdi icon='reload' /></Btn>
+                                </div>
+                                <div className={ `w-full flex my-1` }>
+                                    <Btn color='blue' to="/iam/members/add">
                                         Add Member
                                     </Btn>
                                 </div>

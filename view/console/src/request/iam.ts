@@ -10,13 +10,16 @@ export const iam = {
             },
         } )
             .then( response => response.data )
+            .catch( e => Promise.reject( e ) );
         ;
     },
     login: async ( { email, password }: { email: string; password: string } ): Promise<{ token: string; }> => {
         const data = new FormData(  );
         data.append( 'email', email );
         data.append( 'password', password );
-        return await instance.post<{ token: string }>( '/login/', data ).then( response => response.data );
+        return await instance.post<{ token: string }>( '/login/', data )
+            .then( response => response.data )
+            .catch( e => Promise.reject( e ) );
     },
     update: async ( { jwt, organization, data = {  } }: { jwt: string; organization: string; data: Partial<IAM> } ): Promise<IAM> => {
         const fd = new FormData(  );
@@ -30,7 +33,7 @@ export const iam = {
             data: fd,
         } )
             .then( response => response.data )
-        ;
+            .catch( e => Promise.reject( e ) );
     },
     destroy: async (  ): Promise<any> => {
         return await instance.delete<any>( '/iam/destroy/', {

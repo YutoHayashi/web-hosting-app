@@ -14,13 +14,14 @@ interface Props extends InputAttribute {
     minLength?: number;
     onError?: ( value: string | undefined ) => void;
     className?: string;
+    autoComplete: string | undefined;
 }
 interface States {
     value: string | undefined;
     errorMessage: string;
 }
-export class Text extends React.Component<Props, States> {
-    private text = React.createRef<HTMLInputElement>(  );
+export class Password extends React.Component<Props, States> {
+    private password = React.createRef<HTMLInputElement>(  );
     public constructor( props: Props ) {
         super( props );
         this.state = {
@@ -38,7 +39,7 @@ export class Text extends React.Component<Props, States> {
     }
     public reset(  ) {
         this.setState( { ...this.state, ...{ errorMessage: '', value: '', }, } );
-        if ( this.text.current ) this.text.current.value = '';
+        if ( this.password.current ) this.password.current.value = '';
     }
     public get value(  ) {
         return this.state.value;
@@ -54,11 +55,11 @@ export class Text extends React.Component<Props, States> {
                 if ( !this.isValid( value ) ) {
                     onError( value );
                 }
-            }, 300 );
+            }, 500 );
         };
     }
     public render(  ) {
-        const { title, name, description = '', color = 'blue-500', required = true, placeholder, autoComplete = 'off', autofocus = false, readonly = false, maxLength, minLength, className } = this.props;
+        const { title, name, description = '', color = 'blue-500', required = true, placeholder, autoComplete = 'off', autofocus = false, readonly = false, maxLength = 8, minLength = 32, className } = this.props;
         const { errorMessage } = this.state;
         return (
             <label className={ `inline-block w-full cursor-pointer ${ className }` }>
@@ -68,7 +69,7 @@ export class Text extends React.Component<Props, States> {
                 </p>
                 <small className={ `text-gray-500 text-sm` }>{ description }</small>
                 <small className={ `text-yellow-500` }>{ errorMessage !== '' ? <><Mdi icon='alert-circle' />{ errorMessage }</> : null }</small>
-                <input ref={ this.text } type='text' { ...{ name, required, } } placeholder={ placeholder ? placeholder : `${ title }` } className={ `text-base text-gray-500 font-bold w-full cursor-pointer outline-none focus:outline-none focus:ring-0 border-t-0 border-r-0 border-l-0 border-gray-500 focus:border-${ color } bg-transparent py-1` } { ...{ autoComplete: autoComplete ? 'on' : 'off', autoFocus: autofocus, maxLength, minLength, readOnly: readonly, onChange: this.onChange(  ) } } />
+                <input ref={ this.password } type='password' { ...{ name, required, } } placeholder={ placeholder ? placeholder : `${ title }` } className={ `text-base text-gray-500 font-bold w-full cursor-pointer outline-none focus:outline-none focus:ring-0 border-t-0 border-r-0 border-l-0 border-gray-500 focus:border-${ color } bg-transparent py-1` } { ...{ autoComplete, autoFocus: autofocus, maxLength, minLength, readOnly: readonly, onChange: this.onChange(  ), } } />
             </label>
         );
     }

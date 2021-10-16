@@ -1,15 +1,33 @@
 import { AxiosResponse } from 'axios';
 import { instance } from './request';
 import { IAM } from '@/types';
+const BASE_URL = '/iam/member';
 export const member = {
-    index: async ( { jwt }: { jwt: string; } ): Promise<{ results: IAM[]; }> => {
-        return await instance.get<{ results: IAM[] }>( '/iam/member/index/', {
+    index: async ( params: { jwt: string; } ): Promise<IAM[]> => {
+        const { jwt } = params;
+        return await instance.get<{ results: IAM[] }>( `${ BASE_URL }/index/`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${ jwt }`,
             },
         }, )
-            .then( response => response.data )
-        ;
+            .then( response => response.data.results )
+            .catch( e => Promise.reject( e ) );
+    },
+    add: async ( params: { organization: string, name: string; email: string; password: string, jwt: string; } ): Promise<IAM> => {
+        const { organization, name, email, password, jwt } = params;
+        const fd = new FormData(  );
+        fd.append( 'organization', organization );
+        fd.append( 'name', name );
+        fd.append( 'email', email );
+        fd.append( 'password', password );
+        return await instance.post<{ results: IAM }>( `${ BASE_URL }/register/`, fd, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${ jwt }`,
+            },
+        } )
+            .then( response => response.data.results )
+            .catch( e => Promise.reject( e ) );
     },
 };

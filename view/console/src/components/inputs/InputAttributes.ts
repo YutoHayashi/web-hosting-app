@@ -1,6 +1,6 @@
 export interface InputAttribute {
     placeholder?: string;
-    autocomplete?: boolean;
+    autoComplete?: string;
     autofocus?: boolean;
     readonly?: boolean;
     checked?: boolean;
