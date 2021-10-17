@@ -27,6 +27,7 @@ export class Text extends React.Component<Props, States> {
             value: this.props.default,
             errorMessage: '',
         };
+        console.log( this );
     }
     public isValid( value?: string ): boolean {
         const _value = value || this.state.value;

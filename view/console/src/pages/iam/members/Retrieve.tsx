@@ -48,7 +48,7 @@ export class Retrieve extends React.Component<Props, States> {
                                     </Btn>
                                 </div>
                                 <div className={ `w-full` }>
-                                    <table className={ `table-fixed w-full` }>
+                                    <table className={ `table-auto w-full` }>
                                         <thead>
                                             <tr className={ `text-sm font-light text-gray-700 text-left` }>
                                                 <th>Email</th>
