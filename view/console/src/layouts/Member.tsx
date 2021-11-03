@@ -1,41 +1,32 @@
 import React, { ReactNode } from 'react';
 import { Default, Props as HeadP } from './Default';
-import { HeaderMember } from '@/components/block/HeaderMember';
-import { AppMenu } from '@/components/block/AppMenu';
-import { Alert } from '@/components/block/Alert';
+import { HeaderMember } from '@/components/organisms/blocks/HeaderMember';
+import { AppMenu } from '@/components/organisms/blocks/AppMenu';
+import { Alert } from '@/components/organisms/blocks/Alert';
 import { LinkParameter } from '@/types';
-import { MultiContext } from '@/store';
-import { Breadcrumbs } from '@/components/block/Breadcrumbs';
+import { Breadcrumbs } from '@/components/organisms/blocks/Breadcrumbs';
 import { WithAuthentication } from '@/middleware/Auth';
-interface Props {
+type Props = {
     head?: HeadP;
     links?: Array<LinkParameter>;
     children: ( args: { token: string } ) => ReactNode;
 }
-interface States {  }
-export class Member extends React.Component<Props, States> {
-    public static contextType = MultiContext;
-    public constructor( props: Props ) {
-        super( props );
-    }
-    public render(  ) {
-        const { head, links = [  ], children } = this.props;
-        return (
-            <Default { ...this.props.head }>
-                <HeaderMember />
-                <div className={ `relative flex flex-row` }>
-                    <AppMenu links={ links } />
-                    <div className={ `bg-white w-full` }>
-                        <Breadcrumbs />
-                        <div className={ `py-1 px-2` }>
-                            <Alert />
-                            <WithAuthentication>
-                                { ( { token } ) => children( { token } ) }
-                            </WithAuthentication>
-                        </div>
+export const Member: React.FC<Props> = ( { head, links = [  ], children } ) => {
+    return (
+        <Default { ...head }>
+            <HeaderMember />
+            <div className={ `relative flex flex-row` }>
+                <AppMenu links={ links } />
+                <div className={ `bg-white w-full` }>
+                    <Breadcrumbs />
+                    <div className={ `py-1 px-2` }>
+                        <Alert />
+                        <WithAuthentication>
+                            { ( { token } ) => children( { token } ) }
+                        </WithAuthentication>
                     </div>
                 </div>
-            </Default>
-        );
-    }
-}
+            </div>
+        </Default>
+    );
+};
