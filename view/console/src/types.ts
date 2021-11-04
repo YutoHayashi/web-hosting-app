@@ -1,3 +1,9 @@
+export type Routes = Array<{
+    path: string;
+    component: React.FunctionComponent<any>;
+    exact?: boolean;
+    children?: Routes;
+}>
 export interface LinkParameter {
     href: string;
     name: string;

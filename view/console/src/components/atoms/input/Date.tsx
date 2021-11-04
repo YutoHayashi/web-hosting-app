@@ -18,7 +18,7 @@ export const Date = React.forwardRef<Handler, Props>( ( props, ref ) => {
         onValidate( results );
         return results;
     };
-    const value = (  ) => date.current?.value || '';
+    const getValue = (  ) => date.current?.value || '';
     const reset = (  ) => {
         if ( date.current ) date.current.value = '';
     };
@@ -26,6 +26,6 @@ export const Date = React.forwardRef<Handler, Props>( ( props, ref ) => {
         validation(  );
         onUpdate( e );
     };
-    React.useImperativeHandle( ref, (  ) => ( { validation, value, reset } ) );
+    React.useImperativeHandle( ref, (  ) => ( { validation, getValue, reset } ) );
     return <input ref={ date } type='date' { ...{ ...props, ...{ onChange, } } } />;
 } );

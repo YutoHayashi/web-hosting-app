@@ -18,7 +18,7 @@ export const Password = React.forwardRef<Handler, Props>( ( props, ref ) => {
         onValidate( results );
         return results;
     };
-    const value = (  ) => password.current?.value || '';
+    const getValue = (  ) => password.current?.value || '';
     const reset = (  ) => {
         if ( password.current ) password.current.value = '';
     };
@@ -26,6 +26,6 @@ export const Password = React.forwardRef<Handler, Props>( ( props, ref ) => {
         validation(  );
         onUpdate( e );
     };
-    React.useImperativeHandle( ref, (  ) => ( { validation, value, reset } ) );
+    React.useImperativeHandle( ref, (  ) => ( { validation, getValue, reset } ) );
     return <input ref={ password } type='password' { ...{ ...props, ...{ onChange, } } } />;
 } );

@@ -19,7 +19,7 @@ export const Email = React.forwardRef<Handler, Props>( ( props, ref ) => {
         onValidate( results );
         return results;
     };
-    const value = (  ) => email.current?.value || '';
+    const getValue = (  ) => email.current?.value || '';
     const reset = (  ) => {
         if ( email.current ) email.current.value = '';
     };
@@ -27,6 +27,6 @@ export const Email = React.forwardRef<Handler, Props>( ( props, ref ) => {
         validation(  );
         onUpdate( e );
     };
-    React.useImperativeHandle( ref, (  ) => ( { validation, value, reset } ) );
+    React.useImperativeHandle( ref, (  ) => ( { validation, getValue, reset } ) );
     return <input ref={ email } type='email' { ...{ ...props, ...{ onChange, } } } />;
 } );

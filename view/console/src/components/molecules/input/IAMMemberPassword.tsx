@@ -3,14 +3,16 @@ import { Mdi } from '@/components/atoms/commons/Mdi';
 import { Password } from '@/components/atoms/input/Password';
 import { Handler } from '@/components/atoms/input/types';
 import { RequiredLabel } from '@/components/atoms/input/RequiredLabel';
-type Props = {};
+type Props = {
+    value?: string;
+};
 type States = {
     errors: Array<string | true>;
 };
 let state: States;
 let setState: React.Dispatch<React.SetStateAction<States>>;
 const onValidate: ( errors: Array<string | true> ) => void = errors => setState( { errors, } );
-export const IAMMemberPassword: React.ForwardRefExoticComponent<React.RefAttributes<Handler>> = React.forwardRef<Handler, Props>( ( props, ref ) => {
+export const IAMMemberPassword = React.forwardRef<Handler, Props>( ( props, ref ) => {
     [ state, setState ] = React.useState<States>( { errors: [  ] } );
     const { errors } = state;
     return (

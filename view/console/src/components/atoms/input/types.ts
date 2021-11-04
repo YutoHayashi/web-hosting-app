@@ -1,5 +1,5 @@
 export type Handler = {
     validation: (  ) => Array<string | true>;
-    value: (  ) => any;
+    getValue: (  ) => any;
     reset: (  ) => void;
 };

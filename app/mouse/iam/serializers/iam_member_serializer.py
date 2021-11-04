@@ -1,5 +1,3 @@
-from django.contrib.auth import update_session_auth_hash
-from django.http import request
 from rest_framework import serializers
 
 

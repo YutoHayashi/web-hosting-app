@@ -76,3 +76,16 @@ services:
       - 8000:8000
     volumes:
       - ./view:/app
+
+  builder:
+    networks:
+      application:
+        ipv4_address: 172.11.0.14
+    build:
+      context: ./builder
+      dockerfile: Dockerfile.dev
+    restart: always
+    tty: true
+    volumes:
+      - ./templates:/templates
+      - ./webvol:/webvol

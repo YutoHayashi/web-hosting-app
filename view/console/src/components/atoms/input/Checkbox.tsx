@@ -16,7 +16,7 @@ export const Checkbox = React.forwardRef<Handler, Props>( ( props, ref ) => {
         onValidate( results );
         return results;
     };
-    const value = (  ) => checkbox.current?.checked || false;
+    const getValue = (  ) => checkbox.current?.checked || false;
     const reset = (  ) => {
         if ( checkbox.current ) checkbox.current.checked = false;
     };
@@ -24,6 +24,6 @@ export const Checkbox = React.forwardRef<Handler, Props>( ( props, ref ) => {
         validation(  );
         onUpdate( e );
     };
-    React.useImperativeHandle( ref, (  ) => ( { validation, value, reset } ) );
+    React.useImperativeHandle( ref, (  ) => ( { validation, getValue, reset } ) );
     return <input ref={ checkbox } type='checkbox' { ...{ ...props, ...{ onChange, } } } />
 } );

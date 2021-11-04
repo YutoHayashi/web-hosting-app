@@ -13,6 +13,7 @@ class IAMMe( generics.RetrieveAPIView ):
     def get( self, request, format=None ):
         return Response(
             data    = {
+                'id':           request.user.id,
                 'name':         request.user.name,
                 'email':        request.user.email,
                 'organization': request.user.organization,

@@ -1,11 +1,5 @@
-import React from 'react';
 import * as Pages from '@/pages';
-export type Routes = Array<{
-    path: string;
-    component: typeof React.Component;
-    exact?: boolean;
-    children?: Routes;
-}>
+import { Routes } from '@/types';
 export const routes: Routes = [
 
     { path: '/', component: Pages.Top, exact: true, }, // ← ここだけ children が定義できないよ！
@@ -18,7 +12,9 @@ export const routes: Routes = [
         { path: '/members', component: Pages.IAM.Members.Retrieve, exact: true, children: [
             { path: '/add', component: Pages.IAM.Members.Add, exact: true, },
             { path: '/edit/:id', component: Pages.IAM.Members.Edit, exact: true, },
-            { path: '/show/:id', component: Pages.IAM.Members.Show, exact: true, },
+            { path: '/show', component: Pages.IAM.Members.Show, exact: true, children: [
+                { path: '/:id', component: Pages.IAM.Members.Show, exact: true, },
+            ] },
         ] },
         { path: '/organization', component: Pages.IAM.Organization.Retrieve, exact: true, children: [
             { path: '/settings', component: Pages.IAM.Organization.Settings.Retrieve, exact: true, children: [

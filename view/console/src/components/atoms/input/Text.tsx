@@ -18,7 +18,7 @@ export const Text = React.forwardRef<Handler, Props>( ( props, ref ) => {
         onValidate( results );
         return results;
     };
-    const value = (  ) => text.current?.value || '';
+    const getValue = (  ) => text.current?.value || '';
     const reset = (  ) => {
         if ( text.current ) text.current.value = '';
     };
@@ -26,6 +26,6 @@ export const Text = React.forwardRef<Handler, Props>( ( props, ref ) => {
         validation(  );
         onUpdate( e );
     };
-    React.useImperativeHandle( ref, (  ) => ( { validation, value, reset, } ) );
+    React.useImperativeHandle( ref, (  ) => ( { validation, getValue, reset, } ) );
     return <input ref={ text } type='text' { ...{ ...props, ...{ onChange, } } } />;
 } );

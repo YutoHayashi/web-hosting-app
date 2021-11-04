@@ -6,3 +6,4 @@ from .iam_member_register import IAMMemberRegister
 from .iam_update import IAMUpdate
 from .iam_member_update import IAMMemberUpdate
 from .iam_member_destroy import IAMMemberDestroy
+from .iam_member_show import IAMMemberShow

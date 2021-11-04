@@ -30,6 +30,21 @@ export const member = {
             .then( response => response.data.results )
             .catch( e => Promise.reject( e ) );
     },
+    edit: async ( params: { organization: string, name: string; email: string; jwt: string } ): Promise<IAM> => {
+        const { organization, name, email, jwt } = params;
+        const fd = new FormData(  );
+        fd.append( 'organization', organization );
+        fd.append( 'name', name );
+        fd.append( 'email', email );
+        return await instance.put<IAM>( `${ BASE_URL }/update/`, fd, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${ jwt }`,
+            },
+        } )
+            .then( response => response.data )
+            .catch( e => Promise.reject( e ) );
+    },
     destroy: async ( params: { email: string, jwt: string } ): Promise<IAM> => {
         const { email, jwt } = params;
         const fd = new FormData(  );
@@ -56,5 +71,16 @@ export const member = {
         } )
             .then( response => response.data )
             .catch( e => Promise.reject( e ) );
-    }
+    },
+    show: async ( params: { id: string; jwt: string } ): Promise<IAM> => {
+        const { id, jwt } = params;
+        return await instance.get<IAM>( `${ BASE_URL }/show/${ id }/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${ jwt }`,
+            },
+        } )
+            .then( response => response.data )
+            .catch( e => Promise.reject( e ) );
+    },
 };
