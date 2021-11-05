@@ -1,13 +1,13 @@
-import { AxiosResponse } from 'axios';
 import { instance } from './request';
 import { IAM } from '@/types';
+const Credentials = ( args: { jwt: string; } ) => ( {
+    'Content-Type': 'application/json',
+    'Authorization': `JWT ${ args.jwt }`,
+} );
 export const iam = {
     me: async ( { jwt }: { jwt: string; } ): Promise<IAM> => {
         return await instance.get<IAM>( '/iam/me/', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         } )
             .then( response => response.data )
             .catch( e => Promise.reject( e ) );
@@ -26,10 +26,7 @@ export const iam = {
         fd.append( 'organization', organization );
         Object.keys( data ).forEach( iamkey => fd.append( `${ iamkey }`, data[ iamkey ] ) );
         return await instance.put<IAM>( '/iam/update/', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
             data: fd,
         } )
             .then( response => response.data )

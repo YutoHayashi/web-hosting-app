@@ -1,15 +1,15 @@
-import { AxiosResponse } from 'axios';
 import { instance } from './request';
 import { IAM } from '@/types';
 const BASE_URL = '/iam/member';
+const Credentials = ( args: { jwt: string; } ) => ( {
+    'Content-Type': 'application/json',
+    'Authorization': `JWT ${ args.jwt }`,
+} );
 export const member = {
     index: async ( params: { jwt: string; } ): Promise<IAM[]> => {
         const { jwt } = params;
         return await instance.get<{ results: IAM[]; }>( `${ BASE_URL }/index/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         }, )
             .then( response => response.data.results )
             .catch( e => Promise.reject( e ) );
@@ -22,10 +22,7 @@ export const member = {
         fd.append( 'email', email );
         fd.append( 'password', password );
         return await instance.post<{ results: IAM; }>( `${ BASE_URL }/register/`, fd, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         } )
             .then( response => response.data.results )
             .catch( e => Promise.reject( e ) );
@@ -37,10 +34,7 @@ export const member = {
         fd.append( 'name', name );
         fd.append( 'email', email );
         return await instance.put<IAM>( `${ BASE_URL }/update/`, fd, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         } )
             .then( response => response.data )
             .catch( e => Promise.reject( e ) );
@@ -50,10 +44,7 @@ export const member = {
         const fd = new FormData(  );
         fd.append( 'email', email );
         return await instance.delete<IAM>( `${ BASE_URL }/destroy/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
             data: fd,
         } )
             .then( response => response.data )
@@ -64,10 +55,7 @@ export const member = {
         const fd = new FormData(  );
         fd.append( 'email', email );
         return await instance.put<IAM>( `${ BASE_URL }/update/`, fd, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         } )
             .then( response => response.data )
             .catch( e => Promise.reject( e ) );
@@ -75,10 +63,7 @@ export const member = {
     show: async ( params: { id: string; jwt: string } ): Promise<IAM> => {
         const { id, jwt } = params;
         return await instance.get<IAM>( `${ BASE_URL }/show/${ id }/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${ jwt }`,
-            },
+            headers: { ...Credentials( { jwt } ) },
         } )
             .then( response => response.data )
             .catch( e => Promise.reject( e ) );
