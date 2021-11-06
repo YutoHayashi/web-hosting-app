@@ -24,7 +24,7 @@ export const iam = {
     update: async ( { jwt, organization, data = {  } }: { jwt: string; organization: string; data: Partial<IAM> } ): Promise<IAM> => {
         const fd = new FormData(  );
         fd.append( 'organization', organization );
-        Object.keys( data ).forEach( iamkey => fd.append( `${ iamkey }`, data[ iamkey ] ) );
+        ( Object.keys( data ) as ( keyof IAM )[] ).forEach( iamkey => fd.append( `${ iamkey }`, data[ iamkey ] as string | Blob ) );
         return await instance.put<IAM>( '/iam/update/', {
             headers: { ...Credentials( { jwt } ) },
             data: fd,
