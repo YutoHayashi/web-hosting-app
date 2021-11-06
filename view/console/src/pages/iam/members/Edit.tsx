@@ -40,8 +40,7 @@ export const Edit: React.FC<Props> = ( { match } ) => {
                             <div className='px-3'>
                                 <IAMMember onSubmit={ ( e, params ) => {
                                     const { name, email } = params;
-                                    const organization = context?.state?.iam.me.organization || '';
-                                    return member.edit( { organization, name, email, jwt: token } );
+                                    return member.update( { name, email, jwt: token } );
                                 } } defaultParams={ { name: iam?.name || '', email: iam?.email || '', } } />
                             </div>
                         </section>

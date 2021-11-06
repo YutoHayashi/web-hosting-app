@@ -1,7 +1,5 @@
 import { iam } from '@/request/iam';
 import { cookie } from '@/services/cookie';
-import { MultiContext, RootDispatch, RootState } from '@/store';
-import { CLEAR, SETME } from '@/store/iam';
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 interface Props {  }
 interface States {
@@ -13,53 +11,41 @@ interface States {
 }
 let state: States;
 let setState: Dispatch<SetStateAction<States>> = ( value: SetStateAction<States> ) => null;
-let context: {
-    state: RootState | undefined;
-    dispatch: RootDispatch | undefined;
-} | undefined;
 export const TOKEN_NAME = 'mouse_console_jwt';
 const me: ( args: { token: string } ) => Promise<void> = async ( { token } ) => {
-    try {
-        iam.me( { jwt: token } ).then( me => {
-            if ( context && context.dispatch ) {
-                context.dispatch( { type: SETME, payload: { me, }, } );
-                setState( { ...state, ...{ isAuthenticated: true, token: token, }, } );
-            }
-        } );
-    } finally {
-        Promise.resolve(  );
-    }
+    return iam.me( { jwt: token } )
+        .then( me => {
+            setState( { ...state, ...{ isAuthenticated: true, token: token, }, } );
+            Promise.resolve(  );
+        } )
+        .catch( e => Promise.reject( e ) );
 };
 const login: ( params?: { email?: string; password?: string, } ) => Promise<void> = async ( { email = '', password = '', } = { email: '', password: '', } ) => {
-    try {
-        if ( email !== '' && password !== '' ) {
-            iam.login( { email, password } ).then( ( { token } ) => {
+    if ( email !== '' && password !== '' ) {
+        iam.login( { email, password } )
+            .then( ( { token } ) => {
                 cookie.set( { key: TOKEN_NAME, value: token } );
-                me( { token, } );
-            } );
-        } else {
-            const token: string = cookie.get( { key: TOKEN_NAME } );
-            if ( token ) me( { token, } );
-        }
-    } finally {
-        return Promise.resolve(  );
+                me( { token, } )
+                    .catch( e => Promise.reject( e ) );
+            } )
+            .catch( e => Promise.reject( e ) );
+    } else {
+        const token: string = cookie.get( { key: TOKEN_NAME } );
+        if ( token ) me( { token, } )
+            .catch( e => Promise.reject( e ) );
     }
+    Promise.resolve(  );
 }
 const change: ( params: { email: string; password: string } ) => Promise<void> = async ( { email, password, } ) => {
-    try {
-        logout(  ).then( (  ) => login( { email, password } ) );
-    } finally {
-        return Promise.resolve(  );
-    }
+    logout(  )
+        .then( (  ) => login( { email, password } ) )
+        .catch( e => Promise.reject( e ) );
+    Promise.resolve(  );
 };
 const logout: (  ) => Promise<void> = async (  ) => {
-    try {
-        cookie.delete( { key: TOKEN_NAME } );
-        setState( { ...state, ...{ isAuthenticated: false, }, } );
-        if ( context && context.dispatch ) context.dispatch( { type: CLEAR, } );
-    } finally {
-        return Promise.resolve(  );
-    }
+    cookie.delete( { key: TOKEN_NAME } );
+    setState( { ...state, ...{ isAuthenticated: false, }, } );
+    Promise.resolve(  );
 };
 const init: States = { isAuthenticated: false, token: '', login, change, logout, };
 export const AuthContext = createContext<States>( init );
@@ -70,7 +56,6 @@ export const AuthContext = createContext<States>( init );
  */
 export const AuthProvider: React.FC<Props> = ( { children } ) => {
     [ state, setState ] = useState<States>( init );
-    context = useContext( MultiContext );
     return (
         <AuthContext.Provider value={ state }>
             { children }
